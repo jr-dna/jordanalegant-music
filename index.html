@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Alegant — Musician · Teacher · Builder</title>
+
+<!-- Meta & SEO -->
+<meta name="description" content="Jordan Alegant — private music lessons in cello, guitar, bass, and music technology. Web audio developer building interactive tools for musicians. Based in North Ridgeville, Ohio.">
+<meta name="author" content="Jordan Alegant">
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141418" media="(prefers-color-scheme: dark)">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Jordan Alegant — Musician · Teacher · Builder">
+<meta property="og:description" content="Private music lessons in cello, guitar, bass, and music technology. Web audio tools built to teach, explore, and create.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jordanalegant.music">
+<meta property="og:image" content="https://jordanalegant.music/jordan-photo.jpeg">
+<meta property="og:image:width" content="1067">
+<meta property="og:image:height" content="1600">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jordan Alegant — Musician · Teacher · Builder">
+<meta name="twitter:description" content="Private music lessons and web audio tools. Based in North Ridgeville, Ohio.">
+<meta name="twitter:image" content="https://jordanalegant.music/jordan-photo.jpeg">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+[data-theme="light"] {
+  --bg:#FAF7F2;--bg-warm:#F5F0E8;--bg-section:#EFEBE3;--bg-card:#FFFFFF;
+  --text-primary:#2C2420;--text-secondary:#6B5E54;--text-tertiary:#9C8E82;
+  --accent:#B8612A;--accent-hover:#9A4F1F;--accent-soft:#E8D5C4;
+  --accent-glow:rgba(184,97,42,0.08);
+  --border:#E2DCD4;--border-light:#ECE8E1;
+  --nav-bg:rgba(250,247,242,0.92);
+  --code-bg:#2C2420;--code-text:rgba(255,255,255,0.25);
+  --contact-bg:#2C2420;--contact-text:#FAF7F2;--contact-sub:#9C8E82;
+  --shadow-sm:0 1px 3px rgba(44,36,32,0.04);
+  --shadow-md:0 4px 16px rgba(44,36,32,0.06);
+  --shadow-lg:0 8px 32px rgba(44,36,32,0.08);
+}
+[data-theme="dark"] {
+  --bg:#141418;--bg-warm:#1A1A20;--bg-section:#1E1E26;--bg-card:#1C1C24;
+  --text-primary:#E8E4DE;--text-secondary:#8A857D;--text-tertiary:#5E5A54;
+  --accent:#C4956A;--accent-hover:#D4A87A;--accent-soft:rgba(196,149,106,0.2);
+  --accent-glow:rgba(196,149,106,0.08);
+  --border:rgba(232,228,222,0.08);--border-light:rgba(232,228,222,0.05);
+  --nav-bg:rgba(20,20,24,0.92);
+  --code-bg:#0E0E12;--code-text:rgba(196,149,106,0.3);
+  --contact-bg:#0E0E12;--contact-text:#E8E4DE;--contact-sub:#5E5A54;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.4);
+}
+html.transitioning,html.transitioning *,html.transitioning *::before,html.transitioning *::after{transition:background-color 0.5s ease,color 0.35s ease,border-color 0.5s ease,box-shadow 0.5s ease !important}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);transition:box-shadow 0.3s ease}
+nav.scrolled{box-shadow:var(--shadow-sm)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--text-primary);text-decoration:none;letter-spacing:-0.01em}
+.nav-logo span{color:var(--accent);font-weight:600}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links a{font-size:0.82rem;font-weight:500;color:var(--text-secondary);text-decoration:none;padding:8px 16px;border-radius:100px;transition:color 0.25s ease,background 0.25s ease;letter-spacing:0.04em;text-transform:uppercase}
+.nav-links a:hover{color:var(--text-primary);background:var(--accent-glow)}
+.nav-cta{color:var(--bg)!important;background:var(--accent)!important}
+.nav-cta:hover{background:var(--accent-hover)!important;color:var(--bg)!important}
+.theme-toggle{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--text-secondary);transition:border-color 0.25s ease,background 0.25s ease;margin-left:8px;flex-shrink:0}
+.theme-toggle:hover{border-color:var(--accent);background:var(--accent-glow)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text-primary);margin:5px 0;border-radius:1px}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 40px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 70%);opacity:0.5;border-radius:50%;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-10%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-content{max-width:800px;text-align:center;position:relative;z-index:1}
+.hero-label{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:28px;padding:6px 16px;border:1px solid var(--accent-soft);border-radius:100px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,4.5rem);font-weight:300;line-height:1.15;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards}
+.hero h1 em{font-style:italic;color:var(--accent);font-weight:400}
+.hero-sub{font-size:1.08rem;color:var(--text-secondary);line-height:1.75;max-width:580px;margin:0 auto 40px;font-weight:300;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;padding:14px 32px;border-radius:100px;text-decoration:none;transition:transform 0.3s ease,box-shadow 0.3s ease,background 0.25s ease;cursor:pointer;border:none}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(184,97,42,0.25)}
+.btn-secondary{background:transparent;color:var(--text-primary);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--bg-card)}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 0.8s ease 1.2s forwards}
+.scroll-hint span{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-tertiary);letter-spacing:0.15em;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollPulse 2s ease infinite}
+
+.section{padding:100px 40px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;color:var(--text-primary);letter-spacing:-0.01em;margin-bottom:20px}
+.section-desc{font-size:1.02rem;color:var(--text-secondary);max-width:600px;line-height:1.7;font-weight:300;margin-bottom:48px}
+
+.teach{background:var(--bg)}
+.teach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.teach-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;padding:36px 32px;transition:transform 0.35s ease,box-shadow 0.35s ease;position:relative;overflow:hidden}
+.teach-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease}
+.teach-card:hover::before{transform:scaleX(1)}
+.teach-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.teach-icon{font-size:1.6rem;margin-bottom:16px;display:block}
+.teach-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;margin-bottom:10px;color:var(--text-primary)}
+.teach-card p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300}
+
+.build{background:var(--bg-warm)}
+.build-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.build-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease}
+.build-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.build-preview{height:180px;background:var(--code-bg);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.build-preview-inner{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--code-text);padding:20px;line-height:1.8;white-space:pre}
+.build-preview-label{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--accent);background:var(--accent-glow);padding:3px 10px;border-radius:100px}
+.build-info{padding:28px}
+.build-info h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--text-primary)}
+.build-info p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:16px}
+.build-tags{display:flex;gap:6px;flex-wrap:wrap}
+.build-tag{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);background:var(--bg-section);padding:4px 10px;border-radius:100px}
+
+/* PLAY - v3 with real tracks */
+.play{background:var(--bg)}
+.play-grid{display:flex;flex-direction:column;gap:24px}
+.play-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;transition:box-shadow 0.3s ease}
+.play-card:hover{box-shadow:var(--shadow-md)}
+.play-card-inner{display:grid;grid-template-columns:1fr 1fr;min-height:200px}
+.play-card-info{padding:32px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.play-card-embed{position:relative;background:var(--bg-section);display:flex;align-items:center;justify-content:center;min-height:200px}
+.play-card-embed iframe{width:100%;height:100%;border:none;position:absolute;top:0;left:0}
+.play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase}
+.play-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-primary);line-height:1.25}
+.play-artist{font-size:0.92rem;color:var(--text-secondary);font-weight:300}
+.play-credit{font-size:0.82rem;color:var(--text-tertiary);font-weight:300;font-style:italic}
+.play-links{display:flex;gap:10px;margin-top:8px;align-items:center}
+.play-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;font-size:0.65rem;font-weight:600;transition:all 0.25s ease;font-family:'DM Sans',sans-serif}
+.play-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-links a.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-embed-toggle{display:flex;gap:4px;margin-left:auto}
+.play-embed-toggle button{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:4px 10px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text-tertiary);cursor:pointer;transition:all 0.2s ease;letter-spacing:0.04em}
+.play-embed-toggle button.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-embed-toggle button:hover{border-color:var(--accent);color:var(--accent)}
+
+
+/* RECORD */
+.record{background:var(--bg-section)}
+.record-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:48px}
+.record-feature{padding:32px 28px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;transition:transform 0.35s ease,box-shadow 0.35s ease;position:relative;overflow:hidden}
+.record-feature::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease}
+.record-feature:hover::before{transform:scaleX(1)}
+.record-feature:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.record-feature-icon{width:44px;height:44px;border-radius:50%;background:var(--accent-glow);border:1px solid var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--accent)}
+.record-feature h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;margin-bottom:10px;color:var(--text-primary)}
+.record-feature p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300}
+.record-cta{text-align:center;padding-top:8px}
+.record-cta-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--text-secondary);font-style:italic;margin-bottom:20px}
+
+
+
+/* GIG BAR */
+.gig-bar{background:var(--accent-glow);border-bottom:1px solid var(--border-light);padding:14px 40px;text-align:center}
+.gig-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.gig-bar-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;flex-shrink:0}
+.gig-bar-text{font-size:0.85rem;color:var(--text-secondary);font-weight:300}
+.gig-bar-text strong{color:var(--text-primary);font-weight:500}
+
+.about-preview{background:var(--bg-warm)}
+.about-content{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+.about-photo{width:100%;aspect-ratio:4/5;background:var(--bg-section);border-radius:2px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-light)}
+.about-photo-placeholder{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-tertiary);letter-spacing:0.1em;text-transform:uppercase}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:300;line-height:1.25;margin-bottom:24px;color:var(--text-primary)}
+.about-text h2 em{font-style:italic;color:var(--accent)}
+.about-text p{font-size:0.95rem;color:var(--text-secondary);line-height:1.75;font-weight:300;margin-bottom:16px}
+.about-link{display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:500;color:var(--accent);text-decoration:none;margin-top:12px;transition:gap 0.25s ease}
+.about-link:hover{gap:10px}
+.about-link svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
+
+.contact{background:var(--contact-bg);color:var(--contact-text);text-align:center}
+.contact .section-label{color:var(--accent-soft)}
+.contact .section-title{color:var(--contact-text);max-width:500px;margin:0 auto 20px}
+.contact .section-desc{color:var(--contact-sub);margin:0 auto 36px}
+.contact-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--accent);text-decoration:none;font-weight:400;font-style:italic;transition:opacity 0.25s ease;display:inline-block;margin-bottom:40px}
+.contact-email:hover{opacity:0.8}
+.contact-social{display:flex;justify-content:center;gap:20px}
+.contact-social a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:var(--contact-sub);text-decoration:none;font-size:0.8rem;transition:all 0.25s ease}
+.contact-social a:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+footer{background:var(--contact-bg);border-top:1px solid rgba(255,255,255,0.05);padding:24px 40px;text-align:center}
+footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.2);letter-spacing:0.08em}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:480px){.record-grid{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .nav-inner{padding:0 24px}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(20px);padding:16px 24px;border-bottom:1px solid var(--border-light);gap:4px}
+  .nav-toggle{display:block}
+  .hero{padding:120px 24px 80px}
+  .gig-bar{padding:12px 24px}
+  .section{padding:72px 24px}
+  .play-card-inner{grid-template-columns:1fr}
+  .play-card-embed{min-height:160px}
+  .about-content{grid-template-columns:1fr;gap:36px}
+  .about-photo{max-width:300px;margin:0 auto}
+  .build-grid{grid-template-columns:1fr}
+  .record-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav id="mainNav"><div class="nav-inner">
+  <a href="#" class="nav-logo">Jordan <span>Alegant</span></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#teach">Teach</a></li>
+      <li><a href="#build">Build</a></li>
+      <li><a href="#play">Play</a></li>
+      <li><a href="#record">Record</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</div></nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-label">North Ridgeville, Ohio</span>
+    <h1>Come find<br><em>your sound</em></h1>
+    <p class="hero-sub">Cellist by training. Developer by obsession. Teacher by choice. I run a private studio for cello, guitar, bass, and music technology. I produce, record, and mix with pro-grade gear and a minimal footprint. And I build the web audio tools to make the invisible parts of music visible.</p>
+    <div class="hero-actions">
+      <a href="#teach" class="btn btn-primary">Start Lessons</a>
+      <a href="#build" class="btn btn-secondary">Explore Apps</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- GIG BAR — edit this one line when you have a new gig, or delete the section to hide -->
+<div class="gig-bar">
+  <div class="gig-bar-inner">
+    <span class="gig-bar-label">Next Up</span>
+    <span class="gig-bar-text"><strong>May 1–10</strong> — Fiddler on the Roof · Bellevue Society for the Arts</span>
+  </div>
+</div>
+
+<section class="teach section" id="teach"><div class="section-inner">
+  <div class="reveal">
+    <p class="section-label">Teach</p>
+    <h2 class="section-title">Private lessons tailored to you</h2>
+    <p class="section-desc">Whether you're picking up an instrument for the first time or refining your craft, lessons are built around your goals, your pace, and the music you actually want to play.</p>
+  </div>
+  <div class="teach-grid reveal">
+    <div class="teach-card"><span class="teach-icon">🎻</span><h3>Cello</h3><p>Classical technique, contemporary repertoire, and ensemble skills for students of all levels.</p></div>
+    <div class="teach-card"><span class="teach-icon">🎸</span><h3>Guitar</h3><p>Acoustic and electric — from open chords and fingerpicking to advanced theory and alternate tunings.</p></div>
+    <div class="teach-card"><span class="teach-icon">🎵</span><h3>Bass</h3><p>Groove, technique, and musicianship. Learn to lock in with a rhythm section and find your voice.</p></div>
+    <div class="teach-card"><span class="teach-icon">💻</span><h3>Music Technology</h3><p>Synthesis, sampling, DAW production, and audio programming — where music meets code.</p></div>
+  </div>
+</div></section>
+
+<section class="build section" id="build"><div class="section-inner">
+  <div class="reveal">
+    <p class="section-label">Build</p>
+    <h2 class="section-title">Web audio tools and experiments</h2>
+    <p class="section-desc">Interactive applications that teach synthesis, explore sound design, and turn the browser into a musical instrument. All built as progressive web apps.</p>
+  </div>
+  <div class="build-grid reveal">
+    <a href="https://clinquant-boba-d62d29.netlify.app/" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-preview"><span class="build-preview-label">Instrument</span><div class="build-preview-inner">modal.excite(freq, amp);
+sympathetic.analyze(mic);
+// physical string modeling
+// resonance instrument</div></div>
+      <div class="build-info"><h3>Marionette</h3><p>A resonance instrument for any sound source. Sympathetic strings vibrate to your voice or instrument through Csound physical modeling. Six modes from clean plucks to ghost reverb.</p><div class="build-tags"><span class="build-tag">Csound 7 WASM</span><span class="build-tag">Physical Modeling</span><span class="build-tag">Instrument</span></div></div>
+    </a>
+    <a href="https://inquisitive-pasca-9b8faf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">const ctx = new AudioContext();
+const osc = ctx.createOscillator();
+const weather = await fetch(API);
+// ambient generative music
+// driven by live weather data</div></div>
+      <div class="build-info"><h3>WeatherGen</h3><p>Generative ambient music shaped by live weather conditions. Brownian melodies, chord crossfades, and drift mode.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">Generative</span><span class="build-tag">Weather API</span></div></div>
+    </a>
+    <a href="https://arco-string-tuner.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">const pitch = yin(buffer, sr);
+const room = subtractNoise(ambient);
+// learns your instrument
+// adapts to your room</div></div>
+      <div class="build-info"><h3>Arco</h3><p>A string tuner that learns your instrument. YIN pitch detection, room noise subtraction, harmonic fingerprinting, and historical pitch reference from baroque to modern.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">YIN Detection</span><span class="build-tag">Strings</span></div></div>
+    </a>
+    <a href="https://illustrious-sprite-a8decf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">analyser.getByteFrequencyData(buf);
+const rt60 = calculateDecay(buf);
+// real-time room acoustics
+// measurement and EQ correction</div></div>
+      <div class="build-info"><h3>ROOMTONE</h3><p>Acoustic analysis app that calculates room response and provides EQ corrections based on floor plans and materials.</p><div class="build-tags"><span class="build-tag">Audio Analysis</span><span class="build-tag">Acoustics</span><span class="build-tag">iOS</span></div></div>
+    </a>
+  </div>
+</div></section>
+
+<!-- PLAY - v3 with real tracks and streaming embeds -->
+<section class="play section" id="play"><div class="section-inner">
+  <div class="reveal">
+    <p class="section-label">Play</p>
+    <h2 class="section-title">Recordings and performances</h2>
+    <p class="section-desc">Selected production, performance, and session work across genres.</p>
+  </div>
+  <div class="play-grid reveal">
+
+    <!-- Track 1: Ella's Ending -->
+    <div class="play-card" data-track="ellas-ending">
+      <div class="play-card-inner">
+        <div class="play-card-info">
+          <span class="play-role">Producer · Recording Engineer · Piano · Guitars</span>
+          <h3>Ella's Ending</h3>
+          <p class="play-artist">Brady Lorince</p>
+          <div class="play-links">
+            <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music">AM</a>
+            <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify">SP</a>
+            <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <div class="play-embed-toggle">
+              <button class="active" onclick="switchEmbed('ellas-ending','spotify')">Spotify</button>
+              <button onclick="switchEmbed('ellas-ending','apple')">Apple</button>
+            </div>
+          </div>
+        </div>
+        <div class="play-card-embed" id="embed-ellas-ending">
+          <iframe src="https://open.spotify.com/embed/album/3x2JvbnKmuJC7QnAmaILYj?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track 2: Chicago -->
+    <div class="play-card" data-track="chicago">
+      <div class="play-card-inner">
+        <div class="play-card-info">
+          <span class="play-role">Cello</span>
+          <h3>Chicago</h3>
+          <p class="play-artist">Jaclyn Bradley</p>
+          <div class="play-links">
+            <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP</a>
+            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <div class="play-embed-toggle">
+              <button class="active" onclick="switchEmbed('chicago','spotify')">Spotify</button>
+              <button onclick="switchEmbed('chicago','apple')">Apple</button>
+            </div>
+          </div>
+        </div>
+        <div class="play-card-embed" id="embed-chicago">
+          <iframe src="https://open.spotify.com/embed/track/78dDOeZrVIzJZBq0NiLgWd?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track 3: Second First Love -->
+    <div class="play-card" data-track="second-first-love">
+      <div class="play-card-inner">
+        <div class="play-card-info">
+          <span class="play-role">Producer · Recording Engineer · Guitars · Bass</span>
+          <h3>Second First Love</h3>
+          <p class="play-artist">Mason Mitchell</p>
+          <div class="play-links">
+            <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify">SP</a>
+            <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <div class="play-embed-toggle">
+              <button class="active" onclick="switchEmbed('second-first-love','spotify')">Spotify</button>
+              <button onclick="switchEmbed('second-first-love','apple')">Apple</button>
+            </div>
+          </div>
+        </div>
+        <div class="play-card-embed" id="embed-second-first-love">
+          <iframe src="https://open.spotify.com/embed/track/2G0qQ80wCDgGmbDVkE9CBo?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+
+<!-- RECORD -->
+<section class="record section" id="record">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Record</p>
+      <h2 class="section-title">Pro sound, minimal footprint</h2>
+      <p class="section-desc">Creative production, recording, and mixing built around the music — not the studio. Pro-grade gear, portable setup, honest results.</p>
+    </div>
+    <div class="record-grid reveal">
+      <div class="record-feature">
+        <div class="record-feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Production</h3>
+        <p>Full creative direction from arrangement to final master. Collaborative process, your vision first.</p>
+      </div>
+      <div class="record-feature">
+        <div class="record-feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <h3>Recording</h3>
+        <p>Mobile tracking with studio-quality results. I come to you — your rehearsal space, your living room, wherever the sound is right.</p>
+      </div>
+      <div class="record-feature">
+        <div class="record-feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="10" y1="4" x2="10" y2="20"/></svg>
+        </div>
+        <h3>Mixing</h3>
+        <p>Clean, musical mixes that serve the song. No templates — every project mixed from scratch on ears, not presets.</p>
+      </div>
+      <div class="record-feature">
+        <div class="record-feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <h3>Session & Live</h3>
+        <p>Available for session work and live performance on cello, guitar, and bass. Events, ensembles, pit orchestras, or your next record.</p>
+      </div>
+    </div>
+    <div class="record-cta reveal">
+      <p class="record-cta-text">Have a project in mind?</p>
+      <a href="#contact" class="btn btn-primary">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<section class="about-preview section" id="about"><div class="section-inner">
+  <div class="about-content reveal">
+    <div class="about-photo"><img src="jordan-photo.jpeg" alt="Jordan Alegant with cello" style="width:100%;height:100%;object-fit:cover;border-radius:2px"></div>
+    <div class="about-text">
+      <p class="section-label">About</p>
+      <h2>The <em>long way</em><br>around</h2>
+      <p>Son of musicians, Jordan grew up in Oberlin, Ohio. He began taking cello lessons at an early age and fell in love with the instrument — playing in the Northern Ohio Youth Orchestra and spending summers at Interlochen. But his interests shifted to electric bass in high school, so he set the cello down, moved to Boston, and earned degrees in Electric Bass Performance and Electronic Production and Design from Berklee College of Music.</p>
+      <p>After graduation, he spent a decade as a recording and gigging musician across New England, adding songwriting, vocals, and guitar to his arsenal before eventually rediscovering the cello.</p>
+      <p>Today, Jordan performs as a soloist and section leader with the LCCC Civic Orchestra and as a cellist and audio engineer for Riverfire Strings, alongside freelance work throughout the region. He teaches cello, guitar, bass, and music technology through his private studio and Rock Town Music Academy, and produces and records for local artists from a mobile, pro-grade setup. On the side, he builds interactive web audio tools for musicians and educators.</p>
+
+    </div>
+  </div>
+</div></section>
+
+<section class="contact section" id="contact"><div class="section-inner"><div class="reveal">
+  <p class="section-label">Contact</p>
+  <h2 class="section-title">Let's make something</h2>
+  <p class="section-desc">Whether it's lessons, a gig, a recording, or an idea that's still taking shape — I'm all ears.</p>
+  <a href="#" class="contact-email" id="emailLink">jordan<span>@</span>jordanalegant.music</a>
+  <div class="contact-social">
+    <a href="https://instagram.com/jordan_alegant_music" target="_blank" rel="noopener" title="Instagram">IG</a>
+    <a href="https://github.com/jr-dna" target="_blank" rel="noopener" title="GitHub">GH</a>
+  </div>
+</div></div></section>
+
+<footer><p>&copy; 2026 Jordan Alegant. Built by hand.</p></footer>
+
+<script>
+// Theme
+const html=document.documentElement;
+const themeBtn=document.getElementById('themeToggle');
+function setTheme(t){
+  html.classList.add('transitioning');
+  html.setAttribute('data-theme',t);
+  themeBtn.innerHTML=t==='light'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+  try{localStorage.setItem('ja-theme',t)}catch(e){}
+  setTimeout(()=>html.classList.remove('transitioning'),600);
+}
+let saved=null;try{saved=localStorage.getItem('ja-theme')}catch(e){}
+const prefersDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+setTheme(saved||(prefersDark?'dark':'light'));
+themeBtn.addEventListener('click',()=>{setTheme(html.getAttribute('data-theme')==='light'?'dark':'light')});
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',e=>{let s=null;try{s=localStorage.getItem('ja-theme')}catch(x){}if(!s)setTheme(e.matches?'dark':'light')});
+
+// Nav
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+// Reveal
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+reveals.forEach(el=>observer.observe(el));
+
+// Embed data
+const embedData = {
+  'ellas-ending': {
+    spotify: 'https://open.spotify.com/embed/album/3x2JvbnKmuJC7QnAmaILYj?utm_source=generator&theme=0',
+    apple: 'https://embed.music.apple.com/us/album/ellas-ending/1835207116?i=1835207118'
+  },
+  'chicago': {
+    spotify: 'https://open.spotify.com/embed/track/78dDOeZrVIzJZBq0NiLgWd?utm_source=generator&theme=0',
+    apple: 'https://embed.music.apple.com/us/album/chicago/1865070919?i=1865070921'
+  },
+  'second-first-love': {
+    spotify: 'https://open.spotify.com/embed/track/2G0qQ80wCDgGmbDVkE9CBo?utm_source=generator&theme=0',
+    apple: 'https://embed.music.apple.com/us/album/second-first-love/1833182398?i=1833182400'
+  }
+};
+
+function switchEmbed(track, platform) {
+  const container = document.getElementById('embed-' + track);
+  const url = embedData[track][platform];
+  container.innerHTML = '<iframe src="' + url + '" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="width:100%;height:100%;border:none;position:absolute;top:0;left:0"></iframe>';
+  // Update toggle buttons
+  const card = document.querySelector('[data-track="' + track + '"]');
+  card.querySelectorAll('.play-embed-toggle button').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === (platform === 'spotify' ? 'spotify' : 'apple'));
+  });
+}
+
+// Email link
+var el=document.getElementById('emailLink');
+if(el){el.addEventListener('click',function(e){e.preventDefault();window.location='mai'+'lto:'+'jor'+'dan'+'@jordan'+'alegant.music'});}
+</script>
+</body>
+</html>
