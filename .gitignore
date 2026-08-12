@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+._*
+
+# Claude Code — machine-local settings
+.claude/settings.local.json
+
+# Local-only project context (deliberately not published — Netlify serves repo root)
+CLAUDE.md
