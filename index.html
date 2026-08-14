@@ -181,7 +181,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .build-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease}
 .build-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
 .build-preview{height:180px;background:var(--code-bg);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.build-preview-inner{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--code-text);padding:20px;line-height:1.8;white-space:pre}
+.build-preview img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .build-preview-label{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--accent);background:var(--accent-glow);padding:3px 10px;border-radius:100px}
 .build-info{padding:28px}
 .build-info h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--text-primary)}
@@ -346,32 +346,19 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
   </div>
   <div class="build-grid reveal">
     <a href="https://clinquant-boba-d62d29.netlify.app/" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
-      <div class="build-preview"><span class="build-preview-label">Instrument</span><div class="build-preview-inner">modal.excite(freq, amp);
-sympathetic.analyze(mic);
-// physical string modeling
-// resonance instrument</div></div>
+      <div class="build-preview"><span class="build-preview-label">Instrument</span><img src="app-marionette.jpg" width="800" height="519" loading="lazy" decoding="async" alt="Marionette running in ghost mode, twelve sympathetic strings listening to a live mic"></div>
       <div class="build-info"><h3>Marionette</h3><p>A resonance instrument for any sound source. Sympathetic strings vibrate to your voice or instrument through Csound physical modeling. Six modes from clean plucks to ghost reverb.</p><div class="build-tags"><span class="build-tag">Csound 7 WASM</span><span class="build-tag">Physical Modeling</span><span class="build-tag">Instrument</span></div></div>
     </a>
     <a href="https://inquisitive-pasca-9b8faf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
-      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">const ctx = new AudioContext();
-const osc = ctx.createOscillator();
-const weather = await fetch(API);
-// ambient generative music
-// driven by live weather data</div></div>
+      <div class="build-preview"><span class="build-preview-label">PWA</span><img src="app-weathergen.jpg" width="800" height="525" loading="lazy" decoding="async" alt="WeatherGen playing, with drifting colour fields generated from live weather data"></div>
       <div class="build-info"><h3>WeatherGen</h3><p>Generative ambient music shaped by live weather conditions. Brownian melodies, chord crossfades, and drift mode.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">Generative</span><span class="build-tag">Weather API</span></div></div>
     </a>
     <a href="https://arco-string-tuner.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
-      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">const pitch = yin(buffer, sr);
-const room = subtractNoise(ambient);
-// learns your instrument
-// adapts to your room</div></div>
+      <div class="build-preview"><span class="build-preview-label">PWA</span><img src="app-arco.jpg" width="800" height="519" loading="lazy" decoding="async" style="object-position:center 40%" alt="Arco listening for a cello, showing the C, G, D and A strings and a cents meter"></div>
       <div class="build-info"><h3>Arco</h3><p>A string tuner that learns your instrument. YIN pitch detection, room noise subtraction, harmonic fingerprinting, and historical pitch reference from baroque to modern.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">YIN Detection</span><span class="build-tag">Strings</span></div></div>
     </a>
     <a href="https://illustrious-sprite-a8decf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
-      <div class="build-preview"><span class="build-preview-label">PWA</span><div class="build-preview-inner">analyser.getByteFrequencyData(buf);
-const rt60 = calculateDecay(buf);
-// real-time room acoustics
-// measurement and EQ correction</div></div>
+      <div class="build-preview"><span class="build-preview-label">PWA</span><img src="app-roomtone.jpg" width="800" height="683" loading="lazy" decoding="async" style="object-position:center 80%" alt="ROOMTONE showing RT60 reverberation times per octave band as a bar chart"></div>
       <div class="build-info"><h3>ROOMTONE</h3><p>Acoustic analysis app that calculates room response and provides EQ corrections based on floor plans and materials.</p><div class="build-tags"><span class="build-tag">Audio Analysis</span><span class="build-tag">Acoustics</span><span class="build-tag">iOS</span></div></div>
     </a>
   </div>
