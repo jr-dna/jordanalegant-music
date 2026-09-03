@@ -214,6 +214,12 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .play-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;font-size:0.65rem;font-weight:600;transition:all 0.25s ease;font-family:'DM Sans',sans-serif}
 .play-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
 .play-links a.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-links .share{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;padding:0;transition:all 0.25s ease}
+.play-links .share:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-links .share.done{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-links .share svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* brief ring when someone arrives on a shared link, so the right card announces itself */
+.play-card.linked{box-shadow:0 0 0 2px var(--accent)}
 
 
 /* RECORD */
@@ -382,7 +388,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
 
     <!-- Newest release first. Order here is the order on the page — the grid is
          a flex column and nothing sorts it, so a new song goes at the top. -->
-    <div class="play-card reveal" data-track="country-boys-heart">
+    <div class="play-card reveal" id="track-country-boys-heart" data-track="country-boys-heart">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Producer · Mixing · Bass · Guitars · Keys · Background Vocals</span>
@@ -392,6 +398,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/country-boys-heart.m4a">
@@ -405,7 +412,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     </div>
 
     <!-- Track 1: Ella's Ending -->
-    <div class="play-card reveal" data-track="ellas-ending">
+    <div class="play-card reveal" id="track-ellas-ending" data-track="ellas-ending">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Producer · Recording Engineer · Piano · Guitars</span>
@@ -415,6 +422,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/ellas-ending.m4a">
@@ -428,7 +436,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     </div>
 
     <!-- Track 2: Chicago -->
-    <div class="play-card reveal" data-track="chicago">
+    <div class="play-card reveal" id="track-chicago" data-track="chicago">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Cello</span>
@@ -438,6 +446,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/chicago.m4a">
@@ -451,7 +460,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     </div>
 
     <!-- Track 3: Second First Love -->
-    <div class="play-card reveal" data-track="second-first-love">
+    <div class="play-card reveal" id="track-second-first-love" data-track="second-first-love">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Producer · Recording Engineer · Guitars · Bass</span>
@@ -461,6 +470,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/second-first-love.m4a">
@@ -682,6 +692,41 @@ if(gig){
   window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',repaint);
   let rT;window.addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>players.forEach(draw),150)});
 })();
+
+// Share — copies a deep link to this specific card, or opens the native
+// share sheet where one exists. The card ids are stable, so a shared link
+// lands on the song rather than the top of the site.
+function flashShared(btn){btn.classList.add('done');setTimeout(()=>btn.classList.remove('done'),1400)}
+document.querySelectorAll('.play-links .share').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const card=btn.closest('.play-card');
+    const title=card.querySelector('h3').textContent;
+    const artist=card.querySelector('.play-artist').textContent;
+    const url=location.origin+location.pathname+'#'+card.id;
+    try{
+      if(navigator.share){await navigator.share({title:title+' — '+artist,url});return}
+      await navigator.clipboard.writeText(url);flashShared(btn)
+    }catch(err){
+      if(err&&err.name==='AbortError')return;          // they dismissed the sheet
+      try{await navigator.clipboard.writeText(url);flashShared(btn)}catch(_){}
+    }
+  })
+});
+
+// Landing on a shared link. The card starts at opacity:0 from .reveal and the
+// observer may not fire for it, so make it visible explicitly before scrolling.
+function focusSharedTrack(){
+  const id=location.hash.slice(1);
+  if(!id.startsWith('track-'))return;
+  const card=document.getElementById(id);
+  if(!card)return;
+  card.classList.add('visible');
+  card.scrollIntoView({block:'center'});
+  card.classList.add('linked');
+  setTimeout(()=>card.classList.remove('linked'),2600);
+}
+window.addEventListener('hashchange',focusSharedTrack);
+setTimeout(focusSharedTrack,60);
 
 // Email link
 var el=document.getElementById('emailLink');
