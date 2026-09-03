@@ -378,10 +378,34 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     <h2 class="section-title">Recordings and performances</h2>
     <p class="section-desc">Selected production, performance, and session work across genres.</p>
   </div>
-  <div class="play-grid reveal">
+  <div class="play-grid">
+
+    <!-- Newest release first. Order here is the order on the page — the grid is
+         a flex column and nothing sorts it, so a new song goes at the top. -->
+    <div class="play-card reveal" data-track="country-boys-heart">
+      <div class="play-card-inner">
+        <div class="play-card-info">
+          <span class="play-role">Producer · Mixing · Bass · Guitars · Keys · Background Vocals</span>
+          <h3>Country Boy's Heart Don't Ever Leave</h3>
+          <p class="play-artist">Samantha Jessel</p>
+          <div class="play-links">
+            <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify">SP</a>
+            <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube">YT</a>
+          </div>
+        </div>
+        <div class="play-preview" data-src="previews/country-boys-heart.m4a">
+          <div class="pp-row">
+            <button class="pp-btn" aria-label="Play preview">▶</button>
+            <canvas class="pp-wave" aria-hidden="true"></canvas>
+            <span class="pp-time">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Track 1: Ella's Ending -->
-    <div class="play-card" data-track="ellas-ending">
+    <div class="play-card reveal" data-track="ellas-ending">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Producer · Recording Engineer · Piano · Guitars</span>
@@ -404,7 +428,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     </div>
 
     <!-- Track 2: Chicago -->
-    <div class="play-card" data-track="chicago">
+    <div class="play-card reveal" data-track="chicago">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Cello</span>
@@ -427,7 +451,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     </div>
 
     <!-- Track 3: Second First Love -->
-    <div class="play-card" data-track="second-first-love">
+    <div class="play-card reveal" data-track="second-first-love">
       <div class="play-card-inner">
         <div class="play-card-info">
           <span class="play-role">Producer · Recording Engineer · Guitars · Bass</span>
