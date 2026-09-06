@@ -178,14 +178,23 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 
 .build{background:var(--bg-warm)}
 .build-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
-.build-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease}
-.build-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.build-card{position:relative;isolation:isolate;background:var(--bg-card);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease}
+/* :has(:focus-visible) gives keyboard users the same lift. Not :focus-within,
+   which sticks the lift on after a mouse click and never releases it. */
+.build-card:hover,.build-card:has(:focus-visible){box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+/* The title is the real link; ::after stretches its hit area over the card. */
+.build-link{color:inherit;text-decoration:none}
+.build-link::after{content:'';position:absolute;inset:0;z-index:1}
 .build-preview{height:180px;background:var(--code-bg);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .build-preview img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .build-info{padding:28px}
 .build-info h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--text-primary)}
 .build-info p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:16px}
-.build-tags{display:flex;gap:6px;flex-wrap:wrap}
+.build-tags{display:flex;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+.build-foot{display:flex;align-items:center;gap:12px}
+.build-acts{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+/* Above .build-link::after, so the buttons take the click instead of the card. */
+.build-acts .share,.build-acts .dl{position:relative;z-index:2;flex:0 0 auto;width:30px;height:30px}
 .build-tag{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);background:var(--bg-section);padding:4px 10px;border-radius:100px}
 
 /* PLAY - v3 with real tracks */
@@ -214,12 +223,16 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .play-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;font-size:0.65rem;font-weight:600;transition:all 0.25s ease;font-family:'DM Sans',sans-serif}
 .play-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
 .play-links a.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.play-links .share{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;padding:0;transition:all 0.25s ease}
-.play-links .share:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.play-links .share.done{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.play-links .share svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-/* brief ring when someone arrives on a shared link, so the right card announces itself */
-.play-card.linked{box-shadow:0 0 0 2px var(--accent)}
+
+/* Circle buttons: share (Play and Build) and Vigil's download. Not scoped to a
+   section, so the two sections cannot drift apart. */
+.share,.dl{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;padding:0;text-decoration:none;transition:all 0.25s ease}
+.share:hover,.dl:hover,.share.done{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.share svg,.dl svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.build-link:focus-visible,.share:focus-visible,.dl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Brief ring when someone arrives on a shared link, so the right card announces
+   itself. Sits after both cards' :hover rules, which it has to outrank. */
+.play-card.linked,.build-card.linked{box-shadow:0 0 0 2px var(--accent)}
 
 
 /* RECORD */
@@ -358,26 +371,26 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     <p class="section-desc">Tools and instruments for musicians, mostly built for the browser. Some solve real problems — tuning a cello, measuring a room, finding what's keeping a Mac awake. Others exist because the idea wouldn't leave me alone. Most run as progressive web apps; one is a native Mac utility.</p>
   </div>
   <div class="build-grid reveal">
-    <a href="https://clinquant-boba-d62d29.netlify.app/" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+    <div class="build-card" id="app-marionette">
       <div class="build-preview"><img src="app-marionette.jpg" width="800" height="519" loading="lazy" decoding="async" alt="Marionette running in ghost mode, twelve sympathetic strings listening to a live mic"></div>
-      <div class="build-info"><h3>Marionette</h3><p>A resonance instrument for any sound source. Sympathetic strings vibrate to your voice or instrument through Csound physical modeling. Six modes from clean plucks to ghost reverb.</p><div class="build-tags"><span class="build-tag">Csound 7 WASM</span><span class="build-tag">Physical Modeling</span><span class="build-tag">Instrument</span></div></div>
-    </a>
-    <a href="https://inquisitive-pasca-9b8faf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-info"><h3><a class="build-link" href="https://clinquant-boba-d62d29.netlify.app/" target="_blank" rel="noopener">Marionette</a></h3><p>A resonance instrument for any sound source. Sympathetic strings vibrate to your voice or instrument through Csound physical modeling. Six modes from clean plucks to ghost reverb.</p><div class="build-foot"><div class="build-tags"><span class="build-tag">Csound 7 WASM</span><span class="build-tag">Physical Modeling</span><span class="build-tag">Instrument</span></div><div class="build-acts"><button class="share" type="button" aria-label="Share Marionette"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div></div></div>
+    </div>
+    <div class="build-card" id="app-weathergen">
       <div class="build-preview"><img src="app-weathergen.jpg" width="800" height="525" loading="lazy" decoding="async" alt="WeatherGen playing, with drifting colour fields generated from live weather data"></div>
-      <div class="build-info"><h3>WeatherGen</h3><p>Generative ambient music shaped by live weather conditions. Brownian melodies, chord crossfades, and drift mode.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">Generative</span><span class="build-tag">Weather API</span></div></div>
-    </a>
-    <a href="https://arco-string-tuner.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-info"><h3><a class="build-link" href="https://inquisitive-pasca-9b8faf.netlify.app" target="_blank" rel="noopener">WeatherGen</a></h3><p>Generative ambient music shaped by live weather conditions. Brownian melodies, chord crossfades, and drift mode.</p><div class="build-foot"><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">Generative</span><span class="build-tag">Weather API</span></div><div class="build-acts"><button class="share" type="button" aria-label="Share WeatherGen"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div></div></div>
+    </div>
+    <div class="build-card" id="app-arco">
       <div class="build-preview"><img src="app-arco.jpg" width="800" height="519" loading="lazy" decoding="async" style="object-position:center 40%" alt="Arco listening for a cello, showing the C, G, D and A strings and a cents meter"></div>
-      <div class="build-info"><h3>Arco</h3><p>A string tuner that learns your instrument. YIN pitch detection, room noise subtraction, harmonic fingerprinting, and historical pitch reference from baroque to modern.</p><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">YIN Detection</span><span class="build-tag">Strings</span></div></div>
-    </a>
-    <a href="https://illustrious-sprite-a8decf.netlify.app" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-info"><h3><a class="build-link" href="https://arco-string-tuner.netlify.app" target="_blank" rel="noopener">Arco</a></h3><p>A string tuner that learns your instrument. YIN pitch detection, room noise subtraction, harmonic fingerprinting, and historical pitch reference from baroque to modern.</p><div class="build-foot"><div class="build-tags"><span class="build-tag">Web Audio</span><span class="build-tag">YIN Detection</span><span class="build-tag">Strings</span></div><div class="build-acts"><button class="share" type="button" aria-label="Share Arco"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div></div></div>
+    </div>
+    <div class="build-card" id="app-roomtone">
       <div class="build-preview"><img src="app-roomtone.jpg" width="800" height="683" loading="lazy" decoding="async" style="object-position:center 80%" alt="ROOMTONE showing RT60 reverberation times per octave band as a bar chart"></div>
-      <div class="build-info"><h3>ROOMTONE</h3><p>Acoustic analysis app that calculates room response and provides EQ corrections based on floor plans and materials.</p><div class="build-tags"><span class="build-tag">Audio Analysis</span><span class="build-tag">Acoustics</span><span class="build-tag">iOS</span></div></div>
-    </a>
-    <a href="https://github.com/jr-dna/vigil" target="_blank" rel="noopener" class="build-card" style="text-decoration:none;color:inherit;display:block">
+      <div class="build-info"><h3><a class="build-link" href="https://illustrious-sprite-a8decf.netlify.app" target="_blank" rel="noopener">ROOMTONE</a></h3><p>Acoustic analysis app that calculates room response and provides EQ corrections based on floor plans and materials.</p><div class="build-foot"><div class="build-tags"><span class="build-tag">Audio Analysis</span><span class="build-tag">Acoustics</span><span class="build-tag">iOS</span></div><div class="build-acts"><button class="share" type="button" aria-label="Share ROOMTONE"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div></div></div>
+    </div>
+    <div class="build-card" id="app-vigil">
       <div class="build-preview"><img src="app-vigil.jpg" width="798" height="734" loading="lazy" decoding="async" alt="Vigil's menu bar popover listing two caffeinate processes blocking display and system sleep, one of them orphaned to launchd, each with a Stop button"></div>
-      <div class="build-info"><h3>Vigil</h3><p>A macOS menu bar app for the night your Mac won't sleep. It lists what's actually holding it awake, what started that, and gives you a button to stop it. Free and open source.</p><div class="build-tags"><span class="build-tag">Swift</span><span class="build-tag">macOS 13+</span><span class="build-tag">Apple Silicon only</span></div></div>
-    </a>
+      <div class="build-info"><h3><a class="build-link" href="https://github.com/jr-dna/vigil" target="_blank" rel="noopener">Vigil</a></h3><p>A macOS menu bar app for the night your Mac won't sleep. It lists what's actually holding it awake, what started that, and gives you a button to stop it. Free and open source.</p><div class="build-foot"><div class="build-tags"><span class="build-tag">Swift</span><span class="build-tag">macOS 13+</span><span class="build-tag">Apple Silicon only</span></div><div class="build-acts"><a class="dl" href="https://github.com/jr-dna/vigil/releases/download/v0.3.2/Vigil-0.3.2.dmg" aria-label="Download Vigil 0.3.2 for macOS (.dmg, 168 KB)" title="Download Vigil 0.3.2 (.dmg)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a><button class="share" type="button" aria-label="Share Vigil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div></div></div>
+    </div>
   </div>
 </div></section>
 
@@ -402,7 +415,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube">YT</a>
-            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+            <button class="share" type="button" aria-label="Share Country Boy's Heart Don't Ever Leave"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/country-boys-heart.m4a">
@@ -426,7 +439,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube">YT</a>
-            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+            <button class="share" type="button" aria-label="Share Ella's Ending"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/ellas-ending.m4a">
@@ -450,7 +463,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT</a>
-            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+            <button class="share" type="button" aria-label="Share Chicago"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/chicago.m4a">
@@ -474,7 +487,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music">AM</a>
             <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify">SP</a>
             <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube">YT</a>
-            <button class="share" type="button" aria-label="Share this track"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+            <button class="share" type="button" aria-label="Share Second First Love"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
         <div class="play-preview" data-src="previews/second-first-love.m4a">
@@ -700,15 +713,20 @@ if(gig){
 // Share — copies a deep link to this specific card, or opens the native
 // share sheet where one exists. The card ids are stable, so a shared link
 // lands on the song rather than the top of the site.
-function flashShared(btn){btn.classList.add('done');setTimeout(()=>btn.classList.remove('done'),1400)}
-document.querySelectorAll('.play-links .share').forEach(btn=>{
+// Put a class on an element for a moment. The timer lives on the element, so
+// a second flash before the first ends restarts it instead of stacking.
+function flash(el,cls,ms){clearTimeout(el._flash);el.classList.add(cls);el._flash=setTimeout(()=>el.classList.remove(cls),ms)}
+function flashShared(btn){flash(btn,'done',1400)}
+document.querySelectorAll('.share').forEach(btn=>{
   btn.addEventListener('click',async()=>{
-    const card=btn.closest('.play-card');
-    const title=card.querySelector('h3').textContent;
-    const artist=card.querySelector('.play-artist').textContent;
+    const card=btn.closest('.play-card,.build-card');
+    if(!card)return;
+    const name=card.querySelector('h3').textContent.trim();
+    const artist=card.querySelector('.play-artist');
+    const title=artist?name+' — '+artist.textContent:name+' — Jordan Alegant';
     const url=location.origin+location.pathname+'#'+card.id;
     try{
-      if(navigator.share){await navigator.share({title:title+' — '+artist,url});return}
+      if(navigator.share){await navigator.share({title,url});return}
       await navigator.clipboard.writeText(url);flashShared(btn)
     }catch(err){
       if(err&&err.name==='AbortError')return;          // they dismissed the sheet
@@ -717,20 +735,32 @@ document.querySelectorAll('.play-links .share').forEach(btn=>{
   })
 });
 
-// Landing on a shared link. The card starts at opacity:0 from .reveal and the
-// observer may not fire for it, so make it visible explicitly before scrolling.
-function focusSharedTrack(){
-  const id=location.hash.slice(1);
-  if(!id.startsWith('track-'))return;
-  const card=document.getElementById(id);
+// Landing on a shared link — #track-* from Play, #app-* from Build. The card
+// starts at opacity:0 from .reveal and the observer may not fire for it, so
+// walk up to whichever element carries .reveal (the Play card itself, the
+// Build grid) and make that visible first.
+function sharedCard(){const id=location.hash.slice(1);return /^(track|app)-/.test(id)?document.getElementById(id):null}
+function focusSharedCard(){
+  const card=sharedCard();
   if(!card)return;
-  card.classList.add('visible');
+  const rev=card.closest('.reveal');
+  if(rev)rev.classList.add('visible');
   card.scrollIntoView({block:'center'});
-  card.classList.add('linked');
-  setTimeout(()=>card.classList.remove('linked'),2600);
+  flash(card,'linked',2600);
 }
-window.addEventListener('hashchange',focusSharedTrack);
-setTimeout(focusSharedTrack,60);
+window.addEventListener('hashchange',focusSharedCard);
+setTimeout(focusSharedCard,60);
+// Web fonts land after that 60ms tick and reflow the page under the scroll.
+// Re-centre once they are in — unless the reader has already taken the wheel,
+// in which case the page must not move under them. 'scroll' is not a usable
+// signal here: the smooth scroll above fires it itself.
+let readerMoved=false;
+['wheel','touchstart','keydown'].forEach(t=>addEventListener(t,()=>{readerMoved=true},{once:true,passive:true}));
+const landingHash=location.hash;
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{
+  if(readerMoved||location.hash!==landingHash)return;
+  const c=sharedCard();if(c)c.scrollIntoView({block:'center'});
+});
 
 // Email link
 var el=document.getElementById('emailLink');
