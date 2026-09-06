@@ -2,8 +2,9 @@
 .DS_Store
 ._*
 
-# Claude Code — machine-local settings
-.claude/settings.local.json
+# Claude Code — machine-local settings. The whole directory, not just settings:
+# Netlify publishes the repo root, so anything committed here is served publicly.
+.claude/
 
 # Local-only project context (deliberately not published — Netlify serves repo root)
 CLAUDE.md
