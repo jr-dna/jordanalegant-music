@@ -212,8 +212,9 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .pp-btn{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-size:0.85rem;transition:background 0.2s ease}
 .pp-btn:hover{background:var(--accent-hover)}
 .pp-btn:disabled{opacity:0.45;cursor:default}
-.pp-wave{flex:1;height:52px;cursor:pointer;display:block;background:linear-gradient(var(--border) 0 0) center/100% 2px no-repeat}
-.pp-time{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pp-wave{flex:1;width:0;min-width:0;height:52px;cursor:pointer;display:block;background:linear-gradient(var(--border) 0 0) center/100% 2px no-repeat}
+.pp-time{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:11ch;text-align:right}
+.pp-time:empty{min-width:0}
 .pp-note{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;color:var(--text-tertiary);text-transform:uppercase}
 .play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase}
 .play-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-primary);line-height:1.25}
@@ -292,7 +293,6 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
   .reveal{opacity:1;transform:none}
 }
 
-@media(max-width:480px){.record-grid{grid-template-columns:1fr}}
 @media(max-width:768px){
   .nav-inner{padding:0 24px}
   .nav-links{display:none}
@@ -308,6 +308,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
   .build-grid{grid-template-columns:1fr}
   .record-grid{grid-template-columns:1fr 1fr}
 }
+/* After the 768px block on purpose: both match on a phone, and at equal
+   specificity the later rule wins. It sat above that block once and never applied. */
+@media(max-width:480px){.record-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -442,7 +445,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <button class="share" type="button" aria-label="Share Ella's Ending"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
-        <div class="play-preview" data-src="previews/ellas-ending.m4a">
+        <div class="play-preview">
           <div class="pp-row">
             <button class="pp-btn" aria-label="Play preview">▶</button>
             <canvas class="pp-wave" aria-hidden="true"></canvas>
@@ -466,7 +469,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <button class="share" type="button" aria-label="Share Chicago"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
-        <div class="play-preview" data-src="previews/chicago.m4a">
+        <div class="play-preview">
           <div class="pp-row">
             <button class="pp-btn" aria-label="Play preview">▶</button>
             <canvas class="pp-wave" aria-hidden="true"></canvas>
@@ -490,7 +493,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
             <button class="share" type="button" aria-label="Share Second First Love"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
-        <div class="play-preview" data-src="previews/second-first-love.m4a">
+        <div class="play-preview">
           <div class="pp-row">
             <button class="pp-btn" aria-label="Play preview">▶</button>
             <canvas class="pp-wave" aria-hidden="true"></canvas>
@@ -606,7 +609,12 @@ links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.clas
 
 // Reveal
 const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+// Fire once an element's top is 60px into the viewport. Not a threshold on the
+// element: 15% of a tall element (the Build grid at 300% zoom) can be more than
+// the whole viewport, and then it never reveals. Not a % margin either: on a very
+// tall viewport (25% zoom) a % band swallows Contact, which can't scroll higher
+// than ~460px above the end of the page.
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -60px 0px'});
 reveals.forEach(el=>observer.observe(el));
 
 
@@ -618,8 +626,9 @@ if(gig){
 }
 
 // Previews — the studio's own waveform player, on the studio's own tracks.
-// Clips live in /previews as 30s m4a files; a card whose clip isn't there yet
-// quietly shows "preview soon" and keeps its streaming links.
+// Clips live in /previews as 30s m4a files. A card gets data-src in the same
+// commit as its clip; until then it has none, shows "preview soon" from the
+// start, and keeps its streaming links.
 (function(){
   const boxes=[...document.querySelectorAll('.play-preview')];
   if(!boxes.length)return;
@@ -638,12 +647,30 @@ if(gig){
     return p;
   });
 
+  function markMissing(p){
+    p.state='missing';p.btn.disabled=true;p.btn.textContent='▶';p.time.textContent='';
+    const n=document.createElement('span');n.className='pp-note';
+    n.textContent='preview soon';p.cv.replaceWith(n);
+  }
+
+  // No data-src means no clip yet: say so up front rather than showing a play
+  // button that fails on the first press. No request, so nothing 404s.
+  players.forEach(p=>{if(!p.src)markMissing(p)});
+
   async function load(p){
-    p.state='loading';p.btn.textContent='…';
+    p.state='loading';p.btn.textContent='…';p.time.textContent='0:00';
+    let buf;
     try{
       const res=await fetch(p.src);
+      if(res.status===404){markMissing(p);return}   // data-src set, clip never committed
       if(!res.ok)throw 0;
-      const buf=await res.arrayBuffer();
+      buf=await res.arrayBuffer();
+    }catch(_){
+      // A network blip, not a missing clip: put the card back so the next tap
+      // tries again, instead of writing the song off for the rest of the visit.
+      p.state='idle';p.btn.textContent='▶';p.time.textContent='try again';return;
+    }
+    try{
       // Blob first: decodeAudioData may detach the buffer it is given.
       p.url=URL.createObjectURL(new Blob([buf]));
       const ctx=new (window.AudioContext||window.webkitAudioContext)();
@@ -658,9 +685,7 @@ if(gig){
       p.dur=dec.duration;
       p.state='ready';p.btn.textContent='▶';
     }catch(_){
-      p.state='missing';p.btn.disabled=true;p.btn.textContent='▶';p.time.textContent='';
-      const n=document.createElement('span');n.className='pp-note';
-      n.textContent='preview soon';p.cv.replaceWith(n);
+      markMissing(p);   // the file is there but this browser can't decode it
     }
   }
 
