@@ -227,8 +227,10 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .play-preview{position:relative;background:var(--bg-section);display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:200px;padding:26px 24px}
 .pp-row{display:flex;align-items:center;gap:14px}
 .pp-btn{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--accent);color:var(--bg);border:none;cursor:pointer;display:grid;place-items:center;font-size:0.85rem;transition:background 0.2s ease}
-.pp-btn:hover{background:var(--accent-hover)}
-.pp-btn:disabled,.pp-btn[aria-disabled="true"]{opacity:0.45;cursor:default}
+.pp-btn:not(:disabled):not([aria-disabled="true"]):hover{background:var(--accent-hover)}
+/* Dim the disc, not the element: opacity would also fade the focus ring on a
+   button that keeps focus after its clip fails (see markMissing). */
+.pp-btn:disabled,.pp-btn[aria-disabled="true"]{background:var(--accent-soft);color:var(--text-tertiary);cursor:default}
 .pp-wave{flex:1;width:0;min-width:0;height:52px;cursor:pointer;display:block;background:linear-gradient(var(--border) 0 0) center/100% 2px no-repeat}
 .pp-time{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:11ch;text-align:right}
 .pp-time:empty{min-width:0}
@@ -249,7 +251,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 /* Copied: filled, so it reads differently from the hover it happens under. */
 .share.done{border-color:var(--accent);background:var(--accent);color:var(--bg)}
 .share svg,.dl svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.build-link:focus-visible,.share:focus-visible,.dl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.build-link:focus-visible,.share:focus-visible,.dl:focus-visible,.pp-wave:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* Brief ring when someone arrives on a shared link, so the right card announces
    itself. Sits after both cards' :hover rules, which it has to outrank. */
 .play-card.linked,.build-card.linked{box-shadow:0 0 0 2px var(--accent)}
@@ -310,6 +312,8 @@ html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s eas
 html.js .reveal.visible{opacity:1;transform:translateY(0)}
 /* .reveal's transition would otherwise replace the Play cards' own, killing their hover fade. */
 html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-shadow 0.3s ease}
+/* Printing or saving as PDF: nothing has scrolled in, so show it all. */
+@media print{html.js .reveal{opacity:1;transform:none;transition:none}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
   html.js .reveal{opacity:1;transform:none}
@@ -319,7 +323,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
   .nav-inner{padding:0 24px}
   .nav-links{display:none}
   .nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(20px);padding:16px 24px;border-bottom:1px solid var(--border-light);gap:4px}
-  .nav-toggle{display:block}
+  .nav-toggle{display:block;order:1}
   .hero{padding:120px 24px 80px}
   .gig-bar{padding:12px 24px}
   .section{padding:72px 24px}
@@ -340,6 +344,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
 <nav id="mainNav"><div class="nav-inner">
   <a href="#" class="nav-logo">Jordan <span>Alegant</span></a>
   <div class="nav-right">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#teach">Teach</a></li>
       <li><a href="#build">Build</a></li>
@@ -349,7 +354,6 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </div></nav>
 
@@ -438,9 +442,9 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <h3>Country Boy's Heart Don't Ever Leave</h3>
           <p class="play-artist">Samantha Jessel</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music" aria-label="Country Boy's Heart Don't Ever Leave on Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify" aria-label="Country Boy's Heart Don't Ever Leave on Spotify">SP</a>
-            <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube" aria-label="Country Boy's Heart Don't Ever Leave on YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music">AM<span class="sr-only"> (Country Boy's Heart Don't Ever Leave on Apple Music)</span></a>
+            <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Country Boy's Heart Don't Ever Leave on Spotify)</span></a>
+            <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Country Boy's Heart Don't Ever Leave on YouTube)</span></a>
             <button class="share" type="button" aria-label="Share Country Boy's Heart Don't Ever Leave"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -462,9 +466,9 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <h3>Ella's Ending</h3>
           <p class="play-artist">Brady Lorince</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music" aria-label="Ella's Ending on Apple Music">AM</a>
-            <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify" aria-label="Ella's Ending on Spotify">SP</a>
-            <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube" aria-label="Ella's Ending on YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music">AM<span class="sr-only"> (Ella's Ending on Apple Music)</span></a>
+            <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Ella's Ending on Spotify)</span></a>
+            <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Ella's Ending on YouTube)</span></a>
             <button class="share" type="button" aria-label="Share Ella's Ending"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -486,9 +490,9 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <h3>Chicago</h3>
           <p class="play-artist">Jaclyn Bradley</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music" aria-label="Chicago on Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify" aria-label="Chicago on Spotify">SP</a>
-            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube" aria-label="Chicago on YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM<span class="sr-only"> (Chicago on Apple Music)</span></a>
+            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Chicago on Spotify)</span></a>
+            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Chicago on YouTube)</span></a>
             <button class="share" type="button" aria-label="Share Chicago"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -510,9 +514,9 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <h3>Second First Love</h3>
           <p class="play-artist">Mason Mitchell</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music" aria-label="Second First Love on Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify" aria-label="Second First Love on Spotify">SP</a>
-            <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube" aria-label="Second First Love on YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music">AM<span class="sr-only"> (Second First Love on Apple Music)</span></a>
+            <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Second First Love on Spotify)</span></a>
+            <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Second First Love on YouTube)</span></a>
             <button class="share" type="button" aria-label="Share Second First Love"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -599,8 +603,8 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
   <p class="section-desc">Whether it's lessons, a gig, a recording, or an idea that's still taking shape — I'm all ears.</p>
   <a href="#" class="contact-email" id="emailLink">jordan<span>@</span>jordanalegant.music</a>
   <div class="contact-social">
-    <a href="https://instagram.com/jordan_alegant_music" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">IG</a>
-    <a href="https://github.com/jr-dna" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">GH</a>
+    <a href="https://instagram.com/jordan_alegant_music" target="_blank" rel="noopener" title="Instagram">IG<span class="sr-only"> (Instagram)</span></a>
+    <a href="https://github.com/jr-dna" target="_blank" rel="noopener" title="GitHub">GH<span class="sr-only"> (GitHub)</span></a>
   </div>
 </div></div></section>
 </main>
@@ -616,8 +620,12 @@ const reveals=document.querySelectorAll('.reveal');
 // the whole viewport, and then it never reveals. Not a % margin either: on a very
 // tall viewport (25% zoom) a % band swallows Contact, which can't scroll higher
 // than ~460px above the end of the page.
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -60px 0px'});
-reveals.forEach(el=>observer.observe(el));
+if('IntersectionObserver' in window){
+  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -60px 0px'});
+  reveals.forEach(el=>observer.observe(el));
+}else{
+  reveals.forEach(el=>el.classList.add('visible'));   // Safari 12 and older: no fades, but no lost page either
+}
 clearTimeout(window.jaRevealFailsafe);
 
 // Tells screen readers what just happened ("Link copied" and the like).
@@ -635,23 +643,25 @@ const themeBtn=document.getElementById('themeToggle');
 const THEME_KEY='ja-theme-choice';
 try{localStorage.removeItem('ja-theme')}catch(e){}   // the old key was written on every visit, so it never meant a choice
 function savedTheme(){try{const t=localStorage.getItem(THEME_KEY);return t==='light'||t==='dark'?t:null}catch(e){return null}}
+let choice=savedTheme();   // kept in memory too, so a click holds for this visit even when storage is blocked
 const MOON='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',SUN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
 function setTheme(t,{save=false,animate=true}={}){
   if(animate){html.classList.add('transitioning');setTimeout(()=>html.classList.remove('transitioning'),600)}
   html.setAttribute('data-theme',t);
   themeBtn.innerHTML=t==='light'?MOON:SUN;
   themeBtn.setAttribute('aria-label',t==='light'?'Switch to dark theme':'Switch to light theme');
-  if(save){try{localStorage.setItem(THEME_KEY,t)}catch(e){}}
+  if(save){choice=t;try{localStorage.setItem(THEME_KEY,t)}catch(e){}}
   // The browser's own chrome (address bar) follows a chosen theme, not just the OS.
-  const chosen=savedTheme();
   document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{
-    const dark=chosen?chosen==='dark':(m.media||'').indexOf('dark')>-1;
+    const dark=choice?choice==='dark':(m.media||'').indexOf('dark')>-1;
     m.content=dark?'#141418':'#FAF7F2';
   });
 }
 setTheme(html.getAttribute('data-theme')==='dark'?'dark':'light',{animate:false});
 themeBtn.addEventListener('click',()=>setTheme(html.getAttribute('data-theme')==='light'?'dark':'light',{save:true}));
-onSchemeChange(e=>{if(!savedTheme())setTheme(e.matches?'dark':'light')});
+onSchemeChange(e=>{if(!choice)setTheme(e.matches?'dark':'light')});
+// A choice made in another tab applies here too.
+window.addEventListener('storage',e=>{if(e.key===THEME_KEY&&(e.newValue==='light'||e.newValue==='dark')){choice=e.newValue;setTheme(choice)}});
 
 // Nav
 const nav=document.getElementById('mainNav');
@@ -660,7 +670,11 @@ const toggle=document.getElementById('navToggle'),links=document.getElementById(
 function setMenu(open){links.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open?'true':'false')}
 toggle.addEventListener('click',()=>setMenu(!links.classList.contains('open')));
 links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){setMenu(false);toggle.focus()}});
+// Escape closes it, returning focus to Menu only if focus was in the nav. Check
+// that first: once the list is hidden, a focused link inside it loses focus.
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){const inNav=nav.contains(document.activeElement);setMenu(false);if(inNav)toggle.focus()}});
+// Tabbing out of the menu closes it.
+nav.addEventListener('focusout',e=>{if(links.classList.contains('open')&&e.relatedTarget&&!nav.contains(e.relatedTarget))setMenu(false)});
 document.addEventListener('click',e=>{if(links.classList.contains('open')&&!e.target.closest('#navLinks,#navToggle'))setMenu(false)});
 
 
@@ -695,13 +709,17 @@ if(gig){
       title:h?h.textContent.trim():'this song',
       peaks:pk.length>=20?pk:null,url:null,dur:0,state:'idle'};
     p.btn.addEventListener('click',()=>toggle(p));
-    // The waveform is mouse-only, so arrow keys on the play button move through
-    // the clip in 5s steps while it's the one playing.
-    p.btn.addEventListener('keydown',e=>{
+    // The waveform doubles as a slider for keyboard and screen-reader users:
+    // arrow keys move through the clip in 5s steps while it's the one playing.
+    // (A slider, not keys on the play button: screen readers in browse mode
+    // keep the arrow keys for themselves on a button.)
+    if(p.src){const c=p.cv;c.removeAttribute('aria-hidden');c.setAttribute('role','slider');c.tabIndex=0;
+      c.setAttribute('aria-label','Position in '+p.title);c.setAttribute('aria-valuemin','0');}
+    p.cv.addEventListener('keydown',e=>{
       if(p!==active||!p.dur||(e.key!=='ArrowLeft'&&e.key!=='ArrowRight'))return;
       e.preventDefault();
       audio.currentTime=Math.max(0,Math.min(p.dur-0.1,audio.currentTime+(e.key==='ArrowRight'?5:-5)));
-      draw(p);
+      pos(p);draw(p);
     });
     p.cv.addEventListener('click',e=>{if(p===active&&p.dur){
       const r=p.cv.getBoundingClientRect();
@@ -713,11 +731,18 @@ if(gig){
   function label(p){
     p.btn.setAttribute('aria-label',
       p.state==='missing'?'Preview of '+p.title+' coming soon'
-      :p.state==='loading'?'Loading preview of '+p.title
+      :(p.state==='loading'||(p===active&&!audio.paused&&audio.readyState<3))?'Loading preview of '+p.title
       :(p===active&&!audio.paused)?'Pause preview of '+p.title
       :'Play preview of '+p.title);
-    if(p===active&&p.dur)p.btn.setAttribute('aria-keyshortcuts','ArrowLeft ArrowRight');
-    else p.btn.removeAttribute('aria-keyshortcuts');
+    pos(p);
+  }
+  // Keeps the waveform slider's value in step with the clip.
+  function pos(p){
+    if(p.cv.getAttribute('role')!=='slider')return;
+    const t=(p===active&&p.dur)?audio.currentTime:0,d=p.dur||0;
+    if(d)p.cv.setAttribute('aria-valuemax',String(Math.round(d)));
+    p.cv.setAttribute('aria-valuenow',String(Math.floor(t)));
+    p.cv.setAttribute('aria-valuetext',d?mmss(t)+' of '+mmss(d):mmss(t));
   }
 
   function markMissing(p,viaTap){
@@ -774,7 +799,7 @@ if(gig){
     if(p.state==='loading'||p.state==='missing')return;
     const seq=++tapSeq;
     if(p.state==='idle'){
-      if(p.peaks){p.url=p.src;p.state='ready'}   // waveform already here: just stream it
+      if(p.peaks){p.url=p.src;p.state='ready';p.time.textContent='0:00'}   // waveform already here: just stream it
       else await load(p);
     }
     // If another card was tapped while this one loaded, that tap wins.
@@ -791,18 +816,34 @@ if(gig){
     audio.play().catch(()=>{});
   }
 
-  audio.addEventListener('play',()=>{if(active){active.btn.textContent='❚❚';label(active)}});
+  // 'play' fires as soon as play() is called, before a byte has arrived; show
+  // ❚❚ only once sound is actually coming ('playing'), and … while it waits.
+  const busy=()=>{if(active&&!audio.paused){active.btn.textContent=audio.readyState<3?'…':'❚❚';label(active)}};
+  audio.addEventListener('play',busy);
+  audio.addEventListener('playing',busy);
+  audio.addEventListener('waiting',busy);
   audio.addEventListener('pause',()=>{if(active){active.btn.textContent='▶';label(active)}});
   audio.addEventListener('ended',()=>{if(active){active.btn.textContent='▶';audio.currentTime=0;label(active);draw(active)}});
   audio.addEventListener('durationchange',()=>{if(active&&isFinite(audio.duration)&&audio.duration>0){active.dur=audio.duration;label(active)}});
   audio.addEventListener('timeupdate',()=>{if(active){
-    active.time.textContent=mmss(audio.currentTime)+' / '+mmss(active.dur);draw(active)}});
-  // A streamed clip that fails. A dropped connection (MEDIA_ERR_NETWORK) is
-  // worth a retry; anything else means the file can't be played.
+    active.time.textContent=mmss(audio.currentTime)+(active.dur?' / '+mmss(active.dur):'');
+    // Not while the slider has focus, or a screen reader announces every second;
+    // a key seek updates it through pos() in the keydown handler instead.
+    if(document.activeElement!==active.cv)pos(active);
+    draw(active)}});
+  // A streamed clip that fails. Only a 404, or a clip this browser can't play,
+  // writes the song off; anything else is a blip worth retrying. Browsers report
+  // a request that fails before any audio arrives (offline, a 5xx, a dropped
+  // connection) as an unplayable source, not a network error, so ask the
+  // server what happened before deciding.
   audio.addEventListener('error',()=>{
     const p=active;if(!p||!audio.error)return;
-    active=null;
-    if(audio.error.code===2)retryLater(p);else markMissing(p,true);
+    active=null;audio.pause();   // an error leaves paused=false with nothing playing
+    if(audio.error.code===2)return retryLater(p);
+    p.state='loading';p.btn.textContent='…';label(p);
+    fetch(p.src,{method:'HEAD',cache:'no-store'}).then(
+      r=>{if(r.status===404||(r.ok&&!audio.canPlayType('audio/mp4')))markMissing(p,true);else retryLater(p)},
+      ()=>retryLater(p));
   });
 
   function draw(p){
