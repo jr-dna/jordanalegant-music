@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+// Before first paint: the visitor's saved choice, else their OS setting, so dark
+// mode never flashes light. The js class is what hides .reveal content until it
+// scrolls in; without JavaScript nothing is hidden. If the main script never
+// arrives (an error, a blocked script), the failsafe shows everything anyway.
+(function(d){d.classList.add('js');var t=null;try{t=localStorage.getItem('ja-theme-choice')}catch(e){}
+if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.classList.remove('js')},4000)})(document.documentElement);
+</script>
 <title>Jordan Alegant — Musician · Teacher · Builder</title>
 
 <!-- Meta & SEO -->
@@ -97,26 +106,34 @@
 <style>
 [data-theme="light"] {
   --bg:#FAF7F2;--bg-warm:#F5F0E8;--bg-section:#EFEBE3;--bg-card:#FFFFFF;
-  --text-primary:#2C2420;--text-secondary:#6B5E54;--text-tertiary:#9C8E82;
+  --text-primary:#2C2420;--text-secondary:#6B5E54;--text-tertiary:#74665A;
   --accent:#B8612A;--accent-hover:#9A4F1F;--accent-soft:#E8D5C4;
   --accent-glow:rgba(184,97,42,0.08);
   --border:#E2DCD4;--border-light:#ECE8E1;
   --nav-bg:rgba(250,247,242,0.92);
   --code-bg:#2C2420;--code-text:rgba(255,255,255,0.25);
   --contact-bg:#2C2420;--contact-text:#FAF7F2;--contact-sub:#9C8E82;
+  /* Small accent text and filled buttons need a deeper sienna than --accent to
+     read at 4.5:1; --accent stays for large type, icons and decoration. */
+  --accent-text:#9A4F1F;--accent-fill:#9A4F1F;--accent-fill-hover:#7F4018;--accent-shadow:rgba(154,79,31,0.28);
+  --contact-accent:#D98A55;--contact-label:#E8D5C4;
+  color-scheme:light;
   --shadow-sm:0 1px 3px rgba(44,36,32,0.04);
   --shadow-md:0 4px 16px rgba(44,36,32,0.06);
   --shadow-lg:0 8px 32px rgba(44,36,32,0.08);
 }
 [data-theme="dark"] {
   --bg:#141418;--bg-warm:#1A1A20;--bg-section:#1E1E26;--bg-card:#1C1C24;
-  --text-primary:#E8E4DE;--text-secondary:#8A857D;--text-tertiary:#5E5A54;
+  --text-primary:#E8E4DE;--text-secondary:#9A958D;--text-tertiary:#8E8A84;
   --accent:#C4956A;--accent-hover:#D4A87A;--accent-soft:rgba(196,149,106,0.2);
   --accent-glow:rgba(196,149,106,0.08);
   --border:rgba(232,228,222,0.08);--border-light:rgba(232,228,222,0.05);
   --nav-bg:rgba(20,20,24,0.92);
   --code-bg:#0E0E12;--code-text:rgba(196,149,106,0.3);
-  --contact-bg:#0E0E12;--contact-text:#E8E4DE;--contact-sub:#5E5A54;
+  --contact-bg:#0E0E12;--contact-text:#E8E4DE;--contact-sub:#8A857D;
+  --accent-text:#C4956A;--accent-fill:#C4956A;--accent-fill-hover:#D4A87A;--accent-shadow:rgba(196,149,106,0.25);
+  --contact-accent:#C4956A;--contact-label:#C4956A;
+  color-scheme:dark;
   --shadow-sm:0 1px 3px rgba(0,0,0,0.2);
   --shadow-md:0 4px 16px rgba(0,0,0,0.3);
   --shadow-lg:0 8px 32px rgba(0,0,0,0.4);
@@ -135,8 +152,8 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .nav-links{display:flex;gap:4px;list-style:none;align-items:center}
 .nav-links a{font-size:0.82rem;font-weight:500;color:var(--text-secondary);text-decoration:none;padding:8px 16px;border-radius:100px;transition:color 0.25s ease,background 0.25s ease;letter-spacing:0.04em;text-transform:uppercase}
 .nav-links a:hover{color:var(--text-primary);background:var(--accent-glow)}
-.nav-cta{color:var(--bg)!important;background:var(--accent)!important}
-.nav-cta:hover{background:var(--accent-hover)!important;color:var(--bg)!important}
+.nav-cta{color:var(--bg)!important;background:var(--accent-fill)!important}
+.nav-cta:hover{background:var(--accent-fill-hover)!important;color:var(--bg)!important}
 .theme-toggle{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--text-secondary);transition:border-color 0.25s ease,background 0.25s ease;margin-left:8px;flex-shrink:0}
 .theme-toggle:hover{border-color:var(--accent);background:var(--accent-glow)}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0}
@@ -146,14 +163,14 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 70%);opacity:0.5;border-radius:50%;pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-10%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .hero-content{max-width:800px;text-align:center;position:relative;z-index:1}
-.hero-label{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:28px;padding:6px 16px;border:1px solid var(--accent-soft);border-radius:100px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards}
+.hero-label{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent-text);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:28px;padding:6px 16px;border:1px solid var(--accent-soft);border-radius:100px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,4.5rem);font-weight:300;line-height:1.15;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards}
 .hero h1 em{font-style:italic;color:var(--accent);font-weight:400}
 .hero-sub{font-size:1.08rem;color:var(--text-secondary);line-height:1.75;max-width:580px;margin:0 auto 40px;font-weight:300;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
 .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;padding:14px 32px;border-radius:100px;text-decoration:none;transition:transform 0.3s ease,box-shadow 0.3s ease,background 0.25s ease;cursor:pointer;border:none}
-.btn-primary{background:var(--accent);color:var(--bg)}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(184,97,42,0.25)}
+.btn-primary{background:var(--accent-fill);color:var(--bg)}
+.btn-primary:hover{background:var(--accent-fill-hover);transform:translateY(-1px);box-shadow:0 4px 20px var(--accent-shadow)}
 .btn-secondary{background:transparent;color:var(--text-primary);border:1px solid var(--border)}
 .btn-secondary:hover{background:var(--bg-card)}
 .scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 0.8s ease 1.2s forwards}
@@ -162,7 +179,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 
 .section{padding:100px 40px}
 .section-inner{max-width:1100px;margin:0 auto}
-.section-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent-text);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;color:var(--text-primary);letter-spacing:-0.01em;margin-bottom:20px}
 .section-desc{font-size:1.02rem;color:var(--text-secondary);max-width:600px;line-height:1.7;font-weight:300;margin-bottom:48px}
 
@@ -195,7 +212,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .build-acts{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 /* Above .build-link::after, so the buttons take the click instead of the card. */
 .build-acts .share,.build-acts .dl{position:relative;z-index:2;flex:0 0 auto;width:30px;height:30px}
-.build-tag{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);background:var(--bg-section);padding:4px 10px;border-radius:100px}
+.build-tag{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);background:var(--bg-section);padding:4px 10px;border-radius:100px;white-space:nowrap}
 
 /* PLAY - v3 with real tracks */
 .play{background:var(--bg)}
@@ -209,14 +226,14 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
    no third-party iframes. */
 .play-preview{position:relative;background:var(--bg-section);display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:200px;padding:26px 24px}
 .pp-row{display:flex;align-items:center;gap:14px}
-.pp-btn{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-size:0.85rem;transition:background 0.2s ease}
+.pp-btn{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--accent);color:var(--bg);border:none;cursor:pointer;display:grid;place-items:center;font-size:0.85rem;transition:background 0.2s ease}
 .pp-btn:hover{background:var(--accent-hover)}
-.pp-btn:disabled{opacity:0.45;cursor:default}
+.pp-btn:disabled,.pp-btn[aria-disabled="true"]{opacity:0.45;cursor:default}
 .pp-wave{flex:1;width:0;min-width:0;height:52px;cursor:pointer;display:block;background:linear-gradient(var(--border) 0 0) center/100% 2px no-repeat}
 .pp-time{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:11ch;text-align:right}
 .pp-time:empty{min-width:0}
 .pp-note{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;color:var(--text-tertiary);text-transform:uppercase}
-.play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase}
+.play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent-text);letter-spacing:0.12em;text-transform:uppercase}
 .play-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-primary);line-height:1.25}
 .play-artist{font-size:0.92rem;color:var(--text-secondary);font-weight:300}
 .play-credit{font-size:0.82rem;color:var(--text-tertiary);font-weight:300;font-style:italic}
@@ -228,7 +245,9 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 /* Circle buttons: share (Play and Build) and Vigil's download. Not scoped to a
    section, so the two sections cannot drift apart. */
 .share,.dl{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;padding:0;text-decoration:none;transition:all 0.25s ease}
-.share:hover,.dl:hover,.share.done{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.share:hover,.dl:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+/* Copied: filled, so it reads differently from the hover it happens under. */
+.share.done{border-color:var(--accent);background:var(--accent);color:var(--bg)}
 .share svg,.dl svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .build-link:focus-visible,.share:focus-visible,.dl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* Brief ring when someone arrives on a shared link, so the right card announces
@@ -249,7 +268,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .record-cta{text-align:center;padding-top:8px}
 .record-cta-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--text-secondary);font-style:italic;margin-bottom:20px}
 .record-flow{max-width:600px;margin:0 auto 56px;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-glow)}
-.record-flow-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.record-flow-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent-text);margin-bottom:8px}
 .record-flow-text{font-size:0.9rem;color:var(--text-secondary);line-height:1.75;font-weight:300}
 
 
@@ -257,7 +276,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 /* GIG BAR */
 .gig-bar{background:var(--accent-glow);border-bottom:1px solid var(--border-light);padding:14px 40px;text-align:center}
 .gig-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
-.gig-bar-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;flex-shrink:0}
+.gig-bar-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;color:var(--accent-text);letter-spacing:0.15em;text-transform:uppercase;flex-shrink:0}
 .gig-bar-text{font-size:0.85rem;color:var(--text-secondary);font-weight:300}
 .gig-bar-text strong{color:var(--text-primary);font-weight:500}
 
@@ -273,24 +292,27 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .about-link svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
 
 .contact{background:var(--contact-bg);color:var(--contact-text);text-align:center}
-.contact .section-label{color:var(--accent-soft)}
+.contact .section-label{color:var(--contact-label)}
 .contact .section-title{color:var(--contact-text);max-width:500px;margin:0 auto 20px}
 .contact .section-desc{color:var(--contact-sub);margin:0 auto 36px}
-.contact-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--accent);text-decoration:none;font-weight:400;font-style:italic;transition:opacity 0.25s ease;display:inline-block;margin-bottom:40px}
+.contact-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--contact-accent);text-decoration:none;font-weight:400;font-style:italic;transition:opacity 0.25s ease;display:inline-block;margin-bottom:40px;max-width:100%;overflow-wrap:anywhere}
 .contact-email:hover{opacity:0.8}
 .contact-social{display:flex;justify-content:center;gap:20px}
 .contact-social a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:var(--contact-sub);text-decoration:none;font-size:0.8rem;transition:all 0.25s ease}
-.contact-social a:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.contact-social a:hover{border-color:var(--contact-accent);background:var(--accent-glow);color:var(--contact-accent)}
 footer{background:var(--contact-bg);border-top:1px solid rgba(255,255,255,0.05);padding:24px 40px;text-align:center}
-footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.2);letter-spacing:0.08em}
+footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--contact-sub);letter-spacing:0.08em}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scrollPulse{0%,100%{opacity:0.4}50%{opacity:1}}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+html.js .reveal.visible{opacity:1;transform:translateY(0)}
+/* .reveal's transition would otherwise replace the Play cards' own, killing their hover fade. */
+html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-shadow 0.3s ease}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
-  .reveal{opacity:1;transform:none}
+  html.js .reveal{opacity:1;transform:none}
 }
 
 @media(max-width:768px){
@@ -327,10 +349,11 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </div></nav>
 
+<main id="main">
 <section class="hero">
   <div class="hero-content">
     <span class="hero-label">North Ridgeville, Ohio</span>
@@ -360,10 +383,10 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
     <p class="section-desc">Whether you're picking up an instrument for the first time or refining your craft, lessons are built around your goals, your pace, and the music you actually want to play.</p>
   </div>
   <div class="teach-grid reveal">
-    <div class="teach-card"><span class="teach-icon">🎻</span><h3>Cello</h3><p>Classical technique, contemporary repertoire, and ensemble skills for students of all levels.</p></div>
-    <div class="teach-card"><span class="teach-icon">🎸</span><h3>Guitar</h3><p>Acoustic and electric — from open chords and fingerpicking to advanced theory and alternate tunings.</p></div>
-    <div class="teach-card"><span class="teach-icon">🎵</span><h3>Bass</h3><p>Groove, technique, and musicianship. Learn to lock in with a rhythm section and find your voice.</p></div>
-    <div class="teach-card"><span class="teach-icon">💻</span><h3>Music Technology</h3><p>Synthesis, sampling, DAW production, and audio programming — where music meets code.</p></div>
+    <div class="teach-card"><span class="teach-icon" aria-hidden="true">🎻</span><h3>Cello</h3><p>Classical technique, contemporary repertoire, and ensemble skills for students of all levels.</p></div>
+    <div class="teach-card"><span class="teach-icon" aria-hidden="true">🎸</span><h3>Guitar</h3><p>Acoustic and electric — from open chords and fingerpicking to advanced theory and alternate tunings.</p></div>
+    <div class="teach-card"><span class="teach-icon" aria-hidden="true">🎵</span><h3>Bass</h3><p>Groove, technique, and musicianship. Learn to lock in with a rhythm section and find your voice.</p></div>
+    <div class="teach-card"><span class="teach-icon" aria-hidden="true">💻</span><h3>Music Technology</h3><p>Synthesis, sampling, DAW production, and audio programming — where music meets code.</p></div>
   </div>
 </div></section>
 
@@ -415,13 +438,13 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
           <h3>Country Boy's Heart Don't Ever Leave</h3>
           <p class="play-artist">Samantha Jessel</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify">SP</a>
-            <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/country-boys-heart-dont-ever-leave/6801499094?i=6801499095" target="_blank" rel="noopener" title="Apple Music" aria-label="Country Boy's Heart Don't Ever Leave on Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/6UoZ8Q1pPIrOAvtVJeO6Fd" target="_blank" rel="noopener" title="Spotify" aria-label="Country Boy's Heart Don't Ever Leave on Spotify">SP</a>
+            <a href="https://www.youtube.com/watch?v=bFhaufEiS2c" target="_blank" rel="noopener" title="YouTube" aria-label="Country Boy's Heart Don't Ever Leave on YouTube">YT</a>
             <button class="share" type="button" aria-label="Share Country Boy's Heart Don't Ever Leave"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
-        <div class="play-preview" data-src="previews/country-boys-heart.m4a">
+        <div class="play-preview" data-src="previews/country-boys-heart.m4a" data-peaks=".79,.7,.87,.72,.99,.94,.96,.99,.76,.97,.98,.85,.82,.78,.72,.81,.92,.97,.71,.77,.97,.69,.6,.98,.74,.68,.76,.78,.96,.93,.79,.64,.93,.9,.67,.94,.74,.73,.89,.84,.96,.97,.79,.82,.96,.88,.95,.97,.98,.81,.98,.97,.84,.96,.96,.98,.93,.97,.81,.71,.84,.97,.8,.81,.55,.79,.77,.67,.62,.98,.76,.74,.95,.84,.96,.79,.7,.76,.86,.75,.9,.94,.86,.89,.95,.99,.78,.98,.67,.53,.94,.88,.64,.99,.77,.7,.94,.76,.7,.57,.93,.78,.89,1,.95,.87,.99,.83,.93,.98,.84,.89,.9,.79,.59,.54,.33,.22,.17,.08">
           <div class="pp-row">
             <button class="pp-btn" aria-label="Play preview">▶</button>
             <canvas class="pp-wave" aria-hidden="true"></canvas>
@@ -439,9 +462,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
           <h3>Ella's Ending</h3>
           <p class="play-artist">Brady Lorince</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music">AM</a>
-            <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify">SP</a>
-            <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/ellas-ending/1835207116?i=1835207118" target="_blank" rel="noopener" title="Apple Music" aria-label="Ella's Ending on Apple Music">AM</a>
+            <a href="https://open.spotify.com/album/3x2JvbnKmuJC7QnAmaILYj" target="_blank" rel="noopener" title="Spotify" aria-label="Ella's Ending on Spotify">SP</a>
+            <a href="https://youtu.be/U2ki_4ELOMA?si=Vs8cAgLT0lvy_6rF" target="_blank" rel="noopener" title="YouTube" aria-label="Ella's Ending on YouTube">YT</a>
             <button class="share" type="button" aria-label="Share Ella's Ending"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -463,9 +486,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
           <h3>Chicago</h3>
           <p class="play-artist">Jaclyn Bradley</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP</a>
-            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music" aria-label="Chicago on Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify" aria-label="Chicago on Spotify">SP</a>
+            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube" aria-label="Chicago on YouTube">YT</a>
             <button class="share" type="button" aria-label="Share Chicago"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -487,9 +510,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
           <h3>Second First Love</h3>
           <p class="play-artist">Mason Mitchell</p>
           <div class="play-links">
-            <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music">AM</a>
-            <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify">SP</a>
-            <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube">YT</a>
+            <a href="https://music.apple.com/us/album/second-first-love/1833182398?i=1833182400" target="_blank" rel="noopener" title="Apple Music" aria-label="Second First Love on Apple Music">AM</a>
+            <a href="https://open.spotify.com/track/2G0qQ80wCDgGmbDVkE9CBo?si=WgRiMPj5SPCltltfjnritA" target="_blank" rel="noopener" title="Spotify" aria-label="Second First Love on Spotify">SP</a>
+            <a href="https://youtu.be/cVGeYyKJ3KA?si=RtLV2490IbL6AZQM" target="_blank" rel="noopener" title="YouTube" aria-label="Second First Love on YouTube">YT</a>
             <button class="share" type="button" aria-label="Share Second First Love"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
@@ -576,38 +599,17 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(255
   <p class="section-desc">Whether it's lessons, a gig, a recording, or an idea that's still taking shape — I'm all ears.</p>
   <a href="#" class="contact-email" id="emailLink">jordan<span>@</span>jordanalegant.music</a>
   <div class="contact-social">
-    <a href="https://instagram.com/jordan_alegant_music" target="_blank" rel="noopener" title="Instagram">IG</a>
-    <a href="https://github.com/jr-dna" target="_blank" rel="noopener" title="GitHub">GH</a>
+    <a href="https://instagram.com/jordan_alegant_music" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">IG</a>
+    <a href="https://github.com/jr-dna" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">GH</a>
   </div>
 </div></div></section>
+</main>
 
 <footer><p>&copy; 2026 Jordan Alegant. Built by hand.</p></footer>
+<p class="sr-only" role="status" aria-live="polite" id="liveStatus"></p>
 
 <script>
-// Theme
-const html=document.documentElement;
-const themeBtn=document.getElementById('themeToggle');
-function setTheme(t){
-  html.classList.add('transitioning');
-  html.setAttribute('data-theme',t);
-  themeBtn.innerHTML=t==='light'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
-  try{localStorage.setItem('ja-theme',t)}catch(e){}
-  setTimeout(()=>html.classList.remove('transitioning'),600);
-}
-let saved=null;try{saved=localStorage.getItem('ja-theme')}catch(e){}
-const prefersDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
-setTheme(saved||(prefersDark?'dark':'light'));
-themeBtn.addEventListener('click',()=>{setTheme(html.getAttribute('data-theme')==='light'?'dark':'light')});
-window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',e=>{let s=null;try{s=localStorage.getItem('ja-theme')}catch(x){}if(!s)setTheme(e.matches?'dark':'light')});
-
-// Nav
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
-const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
-toggle.addEventListener('click',()=>links.classList.toggle('open'));
-links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-
-// Reveal
+// Reveal first, so an error anywhere below can't leave the page hidden.
 const reveals=document.querySelectorAll('.reveal');
 // Fire once an element's top is 60px into the viewport. Not a threshold on the
 // element: 15% of a tall element (the Build grid at 300% zoom) can be more than
@@ -616,6 +618,50 @@ const reveals=document.querySelectorAll('.reveal');
 // than ~460px above the end of the page.
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -60px 0px'});
 reveals.forEach(el=>observer.observe(el));
+clearTimeout(window.jaRevealFailsafe);
+
+// Tells screen readers what just happened ("Link copied" and the like).
+function announce(msg){const s=document.getElementById('liveStatus');if(!s)return;s.textContent='';setTimeout(()=>{s.textContent=msg},60)}
+// Colour-scheme changes. addListener is the pre-14 Safari spelling; calling a
+// missing addEventListener there used to throw and stop the whole script.
+function onSchemeChange(fn){const m=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)');if(!m)return;if(m.addEventListener)m.addEventListener('change',fn);else if(m.addListener)m.addListener(fn)}
+
+// Theme. The head script has already applied it before first paint; this draws
+// the toggle and handles changes. Only a click on the toggle is saved, so a
+// stored value means the visitor chose it, and anyone who hasn't keeps
+// following their OS as it switches between light and dark.
+const html=document.documentElement;
+const themeBtn=document.getElementById('themeToggle');
+const THEME_KEY='ja-theme-choice';
+try{localStorage.removeItem('ja-theme')}catch(e){}   // the old key was written on every visit, so it never meant a choice
+function savedTheme(){try{const t=localStorage.getItem(THEME_KEY);return t==='light'||t==='dark'?t:null}catch(e){return null}}
+const MOON='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',SUN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+function setTheme(t,{save=false,animate=true}={}){
+  if(animate){html.classList.add('transitioning');setTimeout(()=>html.classList.remove('transitioning'),600)}
+  html.setAttribute('data-theme',t);
+  themeBtn.innerHTML=t==='light'?MOON:SUN;
+  themeBtn.setAttribute('aria-label',t==='light'?'Switch to dark theme':'Switch to light theme');
+  if(save){try{localStorage.setItem(THEME_KEY,t)}catch(e){}}
+  // The browser's own chrome (address bar) follows a chosen theme, not just the OS.
+  const chosen=savedTheme();
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{
+    const dark=chosen?chosen==='dark':(m.media||'').indexOf('dark')>-1;
+    m.content=dark?'#141418':'#FAF7F2';
+  });
+}
+setTheme(html.getAttribute('data-theme')==='dark'?'dark':'light',{animate:false});
+themeBtn.addEventListener('click',()=>setTheme(html.getAttribute('data-theme')==='light'?'dark':'light',{save:true}));
+onSchemeChange(e=>{if(!savedTheme())setTheme(e.matches?'dark':'light')});
+
+// Nav
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10),{passive:true});
+const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+function setMenu(open){links.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open?'true':'false')}
+toggle.addEventListener('click',()=>setMenu(!links.classList.contains('open')));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){setMenu(false);toggle.focus()}});
+document.addEventListener('click',e=>{if(links.classList.contains('open')&&!e.target.closest('#navLinks,#navToggle'))setMenu(false)});
 
 
 // Gig bar — hides itself once the date in data-until has passed, so it goes quiet instead of stale
@@ -633,49 +679,84 @@ if(gig){
   const boxes=[...document.querySelectorAll('.play-preview')];
   if(!boxes.length)return;
   const audio=new Audio();               // one element: one preview at a time
-  let active=null;
+  audio.preload='none';
+  let active=null,tapSeq=0;
   const mmss=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 
   const players=boxes.map(box=>{
+    const card=box.closest('.play-card'),h=card&&card.querySelector('h3');
+    // data-peaks: 120 bars of the clip's true peak (every sample, channel 0),
+    // computed once and kept in the markup, so the clip can stream at the first
+    // tap instead of downloading and decoding in full first. Without it the
+    // player estimates them itself from every 8th sample.
+    const pk=(box.getAttribute('data-peaks')||'').split(',').map(parseFloat).filter(v=>v>=0&&v<=1);
     const p={btn:box.querySelector('.pp-btn'),cv:box.querySelector('.pp-wave'),
       time:box.querySelector('.pp-time'),src:box.getAttribute('data-src'),
-      peaks:null,url:null,dur:0,state:'idle'};
+      title:h?h.textContent.trim():'this song',
+      peaks:pk.length>=20?pk:null,url:null,dur:0,state:'idle'};
     p.btn.addEventListener('click',()=>toggle(p));
+    // The waveform is mouse-only, so arrow keys on the play button move through
+    // the clip in 5s steps while it's the one playing.
+    p.btn.addEventListener('keydown',e=>{
+      if(p!==active||!p.dur||(e.key!=='ArrowLeft'&&e.key!=='ArrowRight'))return;
+      e.preventDefault();
+      audio.currentTime=Math.max(0,Math.min(p.dur-0.1,audio.currentTime+(e.key==='ArrowRight'?5:-5)));
+      draw(p);
+    });
     p.cv.addEventListener('click',e=>{if(p===active&&p.dur){
       const r=p.cv.getBoundingClientRect();
       audio.currentTime=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width))*p.dur;}});
     return p;
   });
 
-  function markMissing(p){
-    p.state='missing';p.btn.disabled=true;p.btn.textContent='▶';p.time.textContent='';
-    const n=document.createElement('span');n.className='pp-note';
-    n.textContent='preview soon';p.cv.replaceWith(n);
+  // The button's name says which song and what pressing it will do.
+  function label(p){
+    p.btn.setAttribute('aria-label',
+      p.state==='missing'?'Preview of '+p.title+' coming soon'
+      :p.state==='loading'?'Loading preview of '+p.title
+      :(p===active&&!audio.paused)?'Pause preview of '+p.title
+      :'Play preview of '+p.title);
+    if(p===active&&p.dur)p.btn.setAttribute('aria-keyshortcuts','ArrowLeft ArrowRight');
+    else p.btn.removeAttribute('aria-keyshortcuts');
+  }
+
+  function markMissing(p,viaTap){
+    p.state='missing';p.btn.textContent='▶';p.time.textContent='';
+    // Disabling a button that has focus drops a keyboard user back to the page,
+    // so one that was just pressed stays focusable and says why nothing plays.
+    if(viaTap&&document.activeElement===p.btn)p.btn.setAttribute('aria-disabled','true');else p.btn.disabled=true;
+    label(p);
+    if(p.cv.isConnected){const n=document.createElement('span');n.className='pp-note';
+      n.textContent='preview soon';p.cv.replaceWith(n);}
+    if(viaTap)announce('Preview of '+p.title+' coming soon');
+  }
+  // A network blip, not a missing clip: leave the card playable so the next
+  // tap tries again, instead of writing the song off for the rest of the visit.
+  function retryLater(p){
+    p.state='idle';p.btn.textContent='▶';p.time.textContent='try again';label(p);
+    announce("Couldn't load the preview of "+p.title+'. Try again.');
   }
 
   // No data-src means no clip yet: say so up front rather than showing a play
   // button that fails on the first press. No request, so nothing 404s.
-  players.forEach(p=>{if(!p.src)markMissing(p)});
+  players.forEach(p=>{if(!p.src)markMissing(p);else{label(p);draw(p)}});
 
   async function load(p){
-    p.state='loading';p.btn.textContent='…';p.time.textContent='0:00';
+    p.state='loading';p.btn.textContent='…';p.time.textContent='0:00';label(p);
     let buf;
     try{
       const res=await fetch(p.src);
-      if(res.status===404){markMissing(p);return}   // data-src set, clip never committed
+      if(res.status===404){markMissing(p,true);return}   // data-src set, clip never committed
       if(!res.ok)throw 0;
       buf=await res.arrayBuffer();
-    }catch(_){
-      // A network blip, not a missing clip: put the card back so the next tap
-      // tries again, instead of writing the song off for the rest of the visit.
-      p.state='idle';p.btn.textContent='▶';p.time.textContent='try again';return;
-    }
+    }catch(_){retryLater(p);return}
     try{
       // Blob first: decodeAudioData may detach the buffer it is given.
       p.url=URL.createObjectURL(new Blob([buf]));
       const ctx=new (window.AudioContext||window.webkitAudioContext)();
-      const dec=await ctx.decodeAudioData(buf.slice(0));
-      ctx.close().catch?.(()=>{});
+      // Pre-14.1 Safari (webkitAudioContext) only has the callback form.
+      const dec=await new Promise((res,rej)=>{const r=ctx.decodeAudioData(buf.slice(0),res,rej);if(r&&r.then)r.then(res,rej)});
+      const c=ctx.close&&ctx.close();if(c&&c.catch)c.catch(()=>{});
       const ch=dec.getChannelData(0),N=120,per=Math.floor(ch.length/N)||1,pk=[];
       for(let i=0;i<N;i++){let m=0;
         for(let j=i*per;j<Math.min(ch.length,(i+1)*per);j+=8){const v=ch[j]<0?-ch[j]:ch[j];if(v>m)m=v}
@@ -683,28 +764,46 @@ if(gig){
       const top=Math.max(...pk)||1;
       p.peaks=pk.map(v=>Math.round(v/top*100)/100);
       p.dur=dec.duration;
-      p.state='ready';p.btn.textContent='▶';
+      p.state='ready';p.btn.textContent='▶';label(p);
     }catch(_){
-      markMissing(p);   // the file is there but this browser can't decode it
+      markMissing(p,true);   // the file is there but this browser can't decode it
     }
   }
 
   async function toggle(p){
     if(p.state==='loading'||p.state==='missing')return;
-    if(p.state==='idle')await load(p);
-    if(p.state!=='ready')return;
+    const seq=++tapSeq;
+    if(p.state==='idle'){
+      if(p.peaks){p.url=p.src;p.state='ready'}   // waveform already here: just stream it
+      else await load(p);
+    }
+    // If another card was tapped while this one loaded, that tap wins.
+    if(p.state!=='ready'||seq!==tapSeq)return;
     if(p===active&&!audio.paused){audio.pause();return;}
-    if(active&&active!==p){const old=active;audio.pause();active=null;draw(old);}
+    if(active&&active!==p){
+      // Reset the old card here: its pause event arrives after the switch and
+      // would otherwise land on the new card, leaving the old one showing ❚❚.
+      const old=active;audio.pause();active=null;
+      old.btn.textContent='▶';old.time.textContent='0:00';label(old);draw(old);
+    }
     if(active!==p){audio.src=p.url;active=p;}
     draw(p);
     audio.play().catch(()=>{});
   }
 
-  audio.addEventListener('play',()=>{if(active)active.btn.textContent='❚❚'});
-  audio.addEventListener('pause',()=>{if(active)active.btn.textContent='▶'});
-  audio.addEventListener('ended',()=>{if(active){active.btn.textContent='▶';audio.currentTime=0;draw(active)}});
+  audio.addEventListener('play',()=>{if(active){active.btn.textContent='❚❚';label(active)}});
+  audio.addEventListener('pause',()=>{if(active){active.btn.textContent='▶';label(active)}});
+  audio.addEventListener('ended',()=>{if(active){active.btn.textContent='▶';audio.currentTime=0;label(active);draw(active)}});
+  audio.addEventListener('durationchange',()=>{if(active&&isFinite(audio.duration)&&audio.duration>0){active.dur=audio.duration;label(active)}});
   audio.addEventListener('timeupdate',()=>{if(active){
     active.time.textContent=mmss(audio.currentTime)+' / '+mmss(active.dur);draw(active)}});
+  // A streamed clip that fails. A dropped connection (MEDIA_ERR_NETWORK) is
+  // worth a retry; anything else means the file can't be played.
+  audio.addEventListener('error',()=>{
+    const p=active;if(!p||!audio.error)return;
+    active=null;
+    if(audio.error.code===2)retryLater(p);else markMissing(p,true);
+  });
 
   function draw(p){
     if(!p.peaks||!p.cv.isConnected)return;
@@ -727,11 +826,12 @@ if(gig){
     g.globalAlpha=1;
   }
 
-  // Waveforms paint from theme tokens, so repaint when the theme flips.
+  // Waveforms paint from theme tokens, so repaint when the theme flips; and once
+  // the web fonts land, since the timer's width (and so the wave's) changes.
   const repaint=()=>setTimeout(()=>players.forEach(draw),80);
-  const tb=document.getElementById('themeToggle');
-  if(tb)tb.addEventListener('click',repaint);
-  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',repaint);
+  themeBtn.addEventListener('click',repaint);
+  onSchemeChange(repaint);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>players.forEach(draw));
   let rT;window.addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>players.forEach(draw),150)});
 })();
 
@@ -741,7 +841,7 @@ if(gig){
 // Put a class on an element for a moment. The timer lives on the element, so
 // a second flash before the first ends restarts it instead of stacking.
 function flash(el,cls,ms){clearTimeout(el._flash);el.classList.add(cls);el._flash=setTimeout(()=>el.classList.remove(cls),ms)}
-function flashShared(btn){flash(btn,'done',1400)}
+function flashShared(btn){flash(btn,'done',1400);announce('Link copied')}
 document.querySelectorAll('.share').forEach(btn=>{
   btn.addEventListener('click',async()=>{
     const card=btn.closest('.play-card,.build-card');
@@ -755,7 +855,7 @@ document.querySelectorAll('.share').forEach(btn=>{
       await navigator.clipboard.writeText(url);flashShared(btn)
     }catch(err){
       if(err&&err.name==='AbortError')return;          // they dismissed the sheet
-      try{await navigator.clipboard.writeText(url);flashShared(btn)}catch(_){}
+      try{await navigator.clipboard.writeText(url);flashShared(btn)}catch(_){announce("Couldn't copy the link")}
     }
   })
 });
