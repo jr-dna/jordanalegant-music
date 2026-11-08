@@ -234,6 +234,12 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .pp-wave{flex:1;width:0;min-width:0;height:52px;cursor:pointer;display:block;background:linear-gradient(var(--border) 0 0) center/100% 2px no-repeat}
 .pp-time{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:11ch;text-align:right}
 .pp-time:empty{min-width:0}
+/* A song with no preview points at the streaming links in the same panel, so
+   the cards line up. */
+.play-listen{background:var(--bg-section);display:flex;align-items:center;justify-content:center;min-height:200px;padding:26px 24px;text-align:center}
+.play-listen p{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;font-weight:300}
+.play-listen a{color:var(--accent-text);font-weight:500;text-decoration:none}
+.play-listen a:hover{text-decoration:underline}
 .pp-note{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;color:var(--text-tertiary);text-transform:uppercase}
 .play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent-text);letter-spacing:0.12em;text-transform:uppercase}
 .play-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-primary);line-height:1.25}
@@ -329,6 +335,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
   .section{padding:72px 24px}
   .play-card-inner{grid-template-columns:1fr}
   .play-preview{min-height:160px}
+  .play-listen{min-height:110px}
   .about-content{grid-template-columns:1fr;gap:36px}
   .about-photo{max-width:300px;margin:0 auto}
   .build-grid{grid-template-columns:1fr}
@@ -514,17 +521,17 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <p class="play-artist">Jaclyn Bradley</p>
           <div class="play-links">
             <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener" title="Apple Music">AM<span class="sr-only"> (Chicago on Apple Music)</span></a>
-            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd?si=r8KhMxMRT8-XN76go5wDlQ" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Chicago on Spotify)</span></a>
-            <a href="https://youtu.be/yR88unLmUSk?si=IsoXgEDVMkxjfSYQ" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Chicago on YouTube)</span></a>
+            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd" target="_blank" rel="noopener" title="Spotify">SP<span class="sr-only"> (Chicago on Spotify)</span></a>
+            <a href="https://youtu.be/yR88unLmUSk" target="_blank" rel="noopener" title="YouTube">YT<span class="sr-only"> (Chicago on YouTube)</span></a>
             <button class="share" type="button" aria-label="Share Chicago"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           </div>
         </div>
-        <div class="play-preview">
-          <div class="pp-row">
-            <button class="pp-btn" aria-label="Play preview">▶</button>
-            <canvas class="pp-wave" aria-hidden="true"></canvas>
-            <span class="pp-time">0:00</span>
-          </div>
+        <!-- No preview: Jordan played cello on it, but the recording is the artist's
+             to clip. A different element from .play-preview, so the player leaves it alone. -->
+        <div class="play-listen">
+          <p>Listen on <a href="https://music.apple.com/us/album/chicago/1865070919?i=1865070921" target="_blank" rel="noopener">Apple Music</a>,
+            <a href="https://open.spotify.com/track/78dDOeZrVIzJZBq0NiLgWd" target="_blank" rel="noopener">Spotify</a> or
+            <a href="https://youtu.be/yR88unLmUSk" target="_blank" rel="noopener">YouTube</a></p>
         </div>
       </div>
     </div>
