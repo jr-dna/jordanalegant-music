@@ -15,7 +15,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
 <title>Jordan Alegant — Musician · Teacher · Builder</title>
 
 <!-- Meta & SEO -->
-<meta name="description" content="Jordan Alegant — private music lessons in cello, guitar, bass, and music technology. Web audio developer building interactive tools for musicians. Based in North Ridgeville, Ohio.">
+<meta name="description" content="Jordan Alegant — lessons in cello, guitar, bass, and music technology in North Ridgeville, Ohio. Production, recording, and mixing. Audio tools for musicians.">
 <meta name="author" content="Jordan Alegant">
 <link rel="canonical" href="https://jordanalegant.music/">
 <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
@@ -23,7 +23,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
 
 <!-- Open Graph -->
 <meta property="og:title" content="Jordan Alegant — Musician · Teacher · Builder">
-<meta property="og:description" content="Private music lessons in cello, guitar, bass, and music technology. Web audio tools built to teach, explore, and create.">
+<meta property="og:description" content="Private lessons in cello, guitar, bass, and music technology. Production, recording, and mixing. Audio tools built to teach, explore, and create.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jordanalegant.music">
 <meta property="og:image" content="https://jordanalegant.music/og-image.jpg">
@@ -34,7 +34,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Jordan Alegant — Musician · Teacher · Builder">
-<meta name="twitter:description" content="Private music lessons and web audio tools. Based in North Ridgeville, Ohio.">
+<meta name="twitter:description" content="Private music lessons, production and mixing, and audio tools for musicians. Based in North Ridgeville, Ohio.">
 <meta name="twitter:image" content="https://jordanalegant.music/og-image.jpg">
 <meta name="twitter:image:alt" content="Jordan Alegant seated with his cello">
 
@@ -44,7 +44,8 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 
 <!-- Structured data — helps search engines connect the name, the location, and the lessons -->
 <script type="application/ld+json">
@@ -79,7 +80,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
       "image": "https://jordanalegant.music/og-image.jpg",
       "logo": "https://jordanalegant.music/icon-192.png",
       "priceRange": "$$",
-      "description": "Private lessons in cello, guitar, bass, and music technology, plus production, recording, and mixing services.",
+      "description": "Private lessons in cello, guitar, bass, and music technology, plus production, recording, mixing, and session and live work.",
       "founder": { "@id": "https://jordanalegant.music/#jordan" },
       "email": "mailto:jordan@jordanalegant.music",
       "address": {
@@ -97,7 +98,8 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Guitar Lessons" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bass Lessons" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Music Technology Lessons" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Music Production, Recording, and Mixing" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Music Production, Recording, and Mixing" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Session and Live Performance" } }
       ]
     }
   ]
@@ -111,7 +113,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
   --accent-glow:rgba(184,97,42,0.08);
   --border:#E2DCD4;--border-light:#ECE8E1;
   --nav-bg:rgba(250,247,242,0.92);
-  --code-bg:#2C2420;--code-text:rgba(255,255,255,0.25);
+  --code-bg:#2C2420;
   --contact-bg:#2C2420;--contact-text:#FAF7F2;--contact-sub:#9C8E82;
   /* Small accent text and filled buttons need a deeper sienna than --accent to
      read at 4.5:1; --accent stays for large type, icons and decoration. */
@@ -129,7 +131,7 @@ d.setAttribute('data-theme',t);window.jaRevealFailsafe=setTimeout(function(){d.c
   --accent-glow:rgba(196,149,106,0.08);
   --border:rgba(232,228,222,0.08);--border-light:rgba(232,228,222,0.05);
   --nav-bg:rgba(20,20,24,0.92);
-  --code-bg:#0E0E12;--code-text:rgba(196,149,106,0.3);
+  --code-bg:#0E0E12;
   --contact-bg:#0E0E12;--contact-text:#E8E4DE;--contact-sub:#8A857D;
   --accent-text:#C4956A;--accent-fill:#C4956A;--accent-fill-hover:#D4A87A;--accent-shadow:rgba(196,149,106,0.25);
   --contact-accent:#C4956A;--contact-label:#C4956A;
@@ -210,9 +212,11 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .build-info p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300;margin-bottom:16px}
 .build-tags{display:flex;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
 .build-foot{display:flex;align-items:center;gap:12px}
-.build-acts{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.build-acts{display:flex;align-items:center;gap:14px;flex:0 0 auto}
 /* Above .build-link::after, so the buttons take the click instead of the card. */
 .build-acts .share,.build-acts .dl{position:relative;z-index:2;flex:0 0 auto;width:30px;height:30px}
+/* 30px to look at, 44px to hit: they sit on a card that is one big link. */
+.build-acts .share::after,.build-acts .dl::after{content:'';position:absolute;inset:-7px}
 .build-tag{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--text-tertiary);background:var(--bg-section);padding:4px 10px;border-radius:100px;white-space:nowrap}
 
 /* PLAY - v3 with real tracks */
@@ -245,11 +249,9 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .play-role{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent-text);letter-spacing:0.12em;text-transform:uppercase}
 .play-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-primary);line-height:1.25}
 .play-artist{font-size:0.92rem;color:var(--text-secondary);font-weight:300}
-.play-credit{font-size:0.82rem;color:var(--text-tertiary);font-weight:300;font-style:italic}
 .play-links{display:flex;gap:10px;margin-top:8px;align-items:center}
 .play-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;font-size:0.65rem;font-weight:600;transition:all 0.25s ease;font-family:'DM Sans',sans-serif}
-.play-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.play-links a.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.play-links a:hover{border-color:var(--accent);color:var(--accent-text);background:var(--accent-glow)}
 
 /* Circle buttons: share (Play and Build) and Vigil's download. Not scoped to a
    section, so the two sections cannot drift apart. */
@@ -275,6 +277,7 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .record-feature h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;margin-bottom:10px;color:var(--text-primary)}
 .record-feature p{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;font-weight:300}
 .record-cta{text-align:center;padding-top:8px}
+.teach .record-cta{margin-top:48px}
 .record-cta-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--text-secondary);font-style:italic;margin-bottom:20px}
 .record-flow{max-width:600px;margin:0 auto 56px;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-glow)}
 .record-flow-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent-text);margin-bottom:8px}
@@ -292,20 +295,16 @@ nav.scrolled{box-shadow:var(--shadow-sm)}
 .about-preview{background:var(--bg-warm)}
 .about-content{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
 .about-photo{width:100%;aspect-ratio:4/5;background:var(--bg-section);border-radius:2px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-light)}
-.about-photo-placeholder{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-tertiary);letter-spacing:0.1em;text-transform:uppercase}
 .about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:300;line-height:1.25;margin-bottom:24px;color:var(--text-primary)}
 .about-text h2 em{font-style:italic;color:var(--accent)}
 .about-text p{font-size:0.95rem;color:var(--text-secondary);line-height:1.75;font-weight:300;margin-bottom:16px}
-.about-link{display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:500;color:var(--accent);text-decoration:none;margin-top:12px;transition:gap 0.25s ease}
-.about-link:hover{gap:10px}
-.about-link svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
 
 .contact{background:var(--contact-bg);color:var(--contact-text);text-align:center}
 .contact .section-label{color:var(--contact-label)}
 .contact .section-title{color:var(--contact-text);max-width:500px;margin:0 auto 20px}
 .contact .section-desc{color:var(--contact-sub);margin:0 auto 36px}
 .contact-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--contact-accent);text-decoration:none;font-weight:400;font-style:italic;transition:opacity 0.25s ease;display:inline-block;margin-bottom:40px;max-width:100%;overflow-wrap:anywhere}
-.contact-email:hover{opacity:0.8}
+.contact-email:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
 .contact-social{display:flex;justify-content:center;gap:20px}
 .contact-social a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:var(--contact-sub);text-decoration:none;font-size:0.8rem;transition:all 0.25s ease}
 .contact-social a:hover{border-color:var(--contact-accent);background:var(--accent-glow);color:var(--contact-accent)}
@@ -322,7 +321,8 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
 /* Printing or saving as PDF: nothing has scrolled in, so show it all. */
 @media print{html.js .reveal{opacity:1;transform:none;transition:none}}
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
+  html.transitioning,html.transitioning *,html.transitioning *::before,html.transitioning *::after{transition:none !important}
   html.js .reveal{opacity:1;transform:none}
 }
 
@@ -405,12 +405,16 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
     <div class="teach-card"><span class="teach-icon" aria-hidden="true">🎵</span><h3>Bass</h3><p>Groove, technique, and musicianship. Learn to lock in with a rhythm section and find your voice.</p></div>
     <div class="teach-card"><span class="teach-icon" aria-hidden="true">💻</span><h3>Music Technology</h3><p>Synthesis, sampling, DAW production, and audio programming — where music meets code.</p></div>
   </div>
+  <div class="record-cta reveal">
+    <p class="record-cta-text">Curious where to start?</p>
+    <a href="#contact" class="btn btn-primary">Ask About Lessons</a>
+  </div>
 </div></section>
 
 <section class="build section" id="build"><div class="section-inner">
   <div class="reveal">
     <p class="section-label">Build</p>
-    <h2 class="section-title">Web audio tools and experiments</h2>
+    <h2 class="section-title">Tools, instruments, and experiments</h2>
     <p class="section-desc">Tools and instruments for musicians, mostly built for the browser. Some solve real problems — tuning a cello, measuring a room, finding what's keeping a Mac awake. Others exist because the idea wouldn't leave me alone. Most run as progressive web apps; one is a native Mac utility.</p>
   </div>
   <div class="build-grid reveal">
@@ -437,7 +441,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
   </div>
 </div></section>
 
-<!-- PLAY - v3 with real tracks and streaming embeds -->
+<!-- PLAY: each card has streaming links and either a self-hosted 30s preview or a "Listen on" panel -->
 <section class="play section" id="play"><div class="section-inner">
   <div class="reveal">
     <p class="section-label">Play</p>
@@ -446,8 +450,8 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
   </div>
   <div class="play-grid">
 
-    <!-- Newest release first. Order here is the order on the page — the grid is
-         a flex column and nothing sorts it, so a new song goes at the top. -->
+    <!-- Order here is the order on the page — the grid is a flex column and
+         nothing sorts it. A new release goes at the top. -->
     <div class="play-card reveal" id="track-hunting-season" data-track="hunting-season">
       <div class="play-card-inner">
         <div class="play-card-info">
@@ -494,7 +498,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
       </div>
     </div>
 
-    <!-- Track 1: Ella's Ending -->
+    <!-- Ella's Ending -->
     <div class="play-card reveal" id="track-ellas-ending" data-track="ellas-ending">
       <div class="play-card-inner">
         <div class="play-card-info">
@@ -518,7 +522,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
       </div>
     </div>
 
-    <!-- Track 2: Chicago -->
+    <!-- Chicago -->
     <div class="play-card reveal" id="track-chicago" data-track="chicago">
       <div class="play-card-inner">
         <div class="play-card-info">
@@ -542,7 +546,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
       </div>
     </div>
 
-    <!-- Track 3: Second First Love -->
+    <!-- Second First Love -->
     <div class="play-card reveal" id="track-second-first-love" data-track="second-first-love">
       <div class="play-card-inner">
         <div class="play-card-info">
@@ -598,7 +602,7 @@ html.js .play-card.reveal{transition:opacity 0.7s ease,transform 0.7s ease,box-s
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="10" y1="4" x2="10" y2="20"/></svg>
         </div>
         <h3>Mixing</h3>
-        <p>Clean, musical mixes that serve the song. No templates — every project mixed from scratch on ears, not presets.</p>
+        <p>Clean, musical mixes that serve the song. No templates — every project mixed from scratch, by ear.</p>
       </div>
       <div class="record-feature">
         <div class="record-feature-icon">
